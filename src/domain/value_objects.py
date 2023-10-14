@@ -1,0 +1,1 @@
+CurrencyId = int

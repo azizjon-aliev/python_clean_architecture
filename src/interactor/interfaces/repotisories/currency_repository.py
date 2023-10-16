@@ -9,6 +9,10 @@ class CurrencyRepositoryInterface(ABC):
         pass
 
     @abstractmethod
+    def exists(self, **kwargs) -> bool:
+        pass
+
+    @abstractmethod
     def create(self, code: str, name: str, symbol: str) -> Currency:
         pass
 

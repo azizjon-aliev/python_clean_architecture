@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from ..entities.currency import Currency
+from typing import Optional
+
+from src.domain.entities.currency import Currency
 
 
 @dataclass
@@ -16,13 +18,11 @@ class CreateCurrencyOutputDto:
 
 @dataclass
 class UpdateCurrencyInputDto:
-    code: str
-    name: str
-    symbol: str
+    code: Optional[str]
+    name: Optional[str]
+    symbol: Optional[str]
 
 
 @dataclass
 class UpdateCurrencyOutputDto:
-    code: str
-    name: str
-    symbol: str
+    currency: Currency

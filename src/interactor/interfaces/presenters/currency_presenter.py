@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-from src.domain.dtos.currency_dtos import CreateCurrencyOutputDto, UpdateCurrencyOutputDto
+from src.interactor.dtos.currency_dtos import CreateCurrencyOutputDto, UpdateCurrencyOutputDto
 
 
 class CreateCurrencyPresenterInterface(ABC):

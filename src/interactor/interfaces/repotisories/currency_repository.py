@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from src.domain.value_objects import CurrencyId
 from src.domain.entities.currency import Currency
+from src.domain.value_objects import CurrencyId
 
 
 class CurrencyRepositoryInterface(ABC):
@@ -31,5 +31,7 @@ class CurrencyRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def update(self, currency_id: CurrencyId, code: str, name: str, symbol: str) -> Currency:
+    def update(
+        self, currency_id: CurrencyId, code: str, name: str, symbol: str
+    ) -> Currency:
         pass

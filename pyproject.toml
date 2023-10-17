@@ -15,6 +15,57 @@ pydantic = "^2.4.2"
 drf-spectacular = "^0.26.5"
 
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.0"
+black = "^23.9.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I001"
+]
+
+# Note: Ruff supports a top-level `src` option in lieu of isort's `src_paths` setting.
+src = ["src", "tests"]
+
+include = ["*.py", "*.pyi", "**/pyproject.toml", "*.ipynb"]
+
+target-version = "py311"
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+[tool.ruff.isort]
+known-first-party = ["django", "rest_framework"]

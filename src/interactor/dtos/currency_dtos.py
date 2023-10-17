@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
-from typing import Optional, List, Union
+from dataclasses import dataclass
+from typing import List, Optional
 
 from src.domain.entities.currency import Currency
 

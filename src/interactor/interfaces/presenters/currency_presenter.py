@@ -1,7 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List
-from src.interactor.dtos.currency_dtos import CreateCurrencyOutputDto, UpdateCurrencyOutputDto, ListCurrencyOutputDto, \
-    DetailCurrencyOutputDto
+from typing import Dict
+
+from src.interactor.dtos.currency_dtos import (
+    CreateCurrencyOutputDto,
+    DetailCurrencyOutputDto,
+    ListCurrencyOutputDto,
+    UpdateCurrencyOutputDto,
+)
 
 
 class ListCurrencyPresenterInterface(ABC):

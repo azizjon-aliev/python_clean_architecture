@@ -1,1 +1,1 @@
-from .currency import *
+from .currency import *  # noqa: F403

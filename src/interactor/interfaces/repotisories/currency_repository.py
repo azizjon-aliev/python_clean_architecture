@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from typing import List
+
 from src.domain.value_objects import CurrencyId
 from src.domain.entities.currency import Currency
 
@@ -6,6 +8,18 @@ from src.domain.entities.currency import Currency
 class CurrencyRepositoryInterface(ABC):
     @abstractmethod
     def get(self, currency_id: CurrencyId) -> Currency:
+        pass
+
+    @abstractmethod
+    def delete(self, currency_id: CurrencyId) -> None:
+        pass
+
+    @abstractmethod
+    def count(self) -> int:
+        pass
+
+    @abstractmethod
+    def list(self, skip: int = 0, limit: int = 100) -> List[Currency]:
         pass
 
     @abstractmethod

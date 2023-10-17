@@ -1,4 +1,6 @@
 import os
+from typing import List
+
 import django
 from dotenv import load_dotenv
 from src.domain.entities.currency import Currency
@@ -31,6 +33,21 @@ class CurrencyRepository(CurrencyRepositoryInterface):
             return True
         else:
             return False
+
+    def count(self) -> int:
+        return CurrencyModel.objects.count()
+
+    def delete(self, currency_id: CurrencyId) -> None:
+        instance = CurrencyModel.objects.filter(pk=currency_id).first()
+
+        if not instance:
+            raise Exception("currency does not exists")
+
+        instance.delete()
+
+    def list(self, skip: int = 0, limit: int = 100) -> List[Currency]:
+        currency_models = CurrencyModel.objects.all()[skip:skip + limit]
+        return [self.__decode_model(instance) for instance in currency_models]
 
     def get(self, currency_id: CurrencyId) -> Currency:
         instance = CurrencyModel.objects.filter(pk=currency_id).first()

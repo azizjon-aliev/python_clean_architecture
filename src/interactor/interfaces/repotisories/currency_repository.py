@@ -31,5 +31,7 @@ class CurrencyRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    def update(self, currency_id: CurrencyId, code: str, name: str, symbol: str) -> Currency:
+    def update(
+        self, currency_id: CurrencyId, code: str, name: str, symbol: str
+    ) -> Currency:
         pass

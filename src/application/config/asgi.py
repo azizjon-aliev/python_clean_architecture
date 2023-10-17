@@ -15,6 +15,6 @@ from django.core.asgi import get_asgi_application
 
 load_dotenv()
 settings_module = f"src.application.config.settings.{os.getenv('DJANGO_ENV')}"
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
 
 application = get_asgi_application()

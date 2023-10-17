@@ -53,15 +53,25 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         responses={200: ListCurrencyResponseSerializer},
         methods=["GET"],
         parameters=[
-            OpenApiParameter("skip", int, OpenApiParameter.QUERY, description="Number of items to skip."),
-            OpenApiParameter("limit", int, OpenApiParameter.QUERY, description="Maximum number of items to retrieve.")
-        ]
+            OpenApiParameter(
+                "skip",
+                int,
+                OpenApiParameter.QUERY,
+                description="Number of items to skip.",
+            ),
+            OpenApiParameter(
+                "limit",
+                int,
+                OpenApiParameter.QUERY,
+                description="Maximum number of items to retrieve.",
+            ),
+        ],
     )
     def list(self, request: Request) -> Response:
         # request
         parameters = {
             "skip": int(request.query_params.get("skip", 0)),
-            "limit": int(request.query_params.get("limit", 100))
+            "limit": int(request.query_params.get("limit", 100)),
         }
 
         # logic
@@ -75,8 +85,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
         # response
         return Response(
-            data=ListCurrencyResponseSerializer(result).data,
-            status=status.HTTP_200_OK
+            data=ListCurrencyResponseSerializer(result).data, status=status.HTTP_200_OK
         )
 
     @extend_schema(
@@ -85,9 +94,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
             404: NotFoundResponseSerializer,
         },
         methods=["GET"],
-        parameters=[
-            OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)
-        ]
+        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def retrieve(self, request: Request, pk: Optional[CurrencyId]) -> Response:
         # logic
@@ -104,13 +111,13 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         # response
         return Response(
             data=DetailCurrencyResponseSerializer(result).data,
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
 
     @extend_schema(
         request=CreateCurrencyRequestSerializer,
         responses={201: CreateCurrencyResponseSerializer},
-        methods=["POST"]
+        methods=["POST"],
     )
     def create(self, request: Request) -> Response:
         # request
@@ -129,7 +136,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         # response
         return Response(
             data=CreateCurrencyResponseSerializer(result).data,
-            status=status.HTTP_201_CREATED
+            status=status.HTTP_201_CREATED,
         )
 
     @extend_schema(
@@ -139,9 +146,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
             404: NotFoundResponseSerializer,
         },
         methods=["PATCH"],
-        parameters=[
-            OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)
-        ]
+        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def partial_update(self, request: Request, pk: Optional[CurrencyId]) -> Response:
         # request
@@ -163,7 +168,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         # response
         return Response(
             data=UpdateCurrencyResponseSerializer(result).data,
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
 
     @extend_schema(
@@ -172,9 +177,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
             404: NotFoundResponseSerializer,
         },
         methods=["DELETE"],
-        parameters=[
-            OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)
-        ]
+        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def destroy(self, request: Request, pk: Optional[CurrencyId]) -> Response:
         # logic
@@ -187,7 +190,4 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         except EntityDoesNotExist:
             raise Http404()
 
-        return Response(
-            data=None,
-            status=status.HTTP_204_NO_CONTENT
-        )
+        return Response(data=None, status=status.HTTP_204_NO_CONTENT)

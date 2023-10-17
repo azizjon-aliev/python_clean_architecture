@@ -1,15 +1,31 @@
-from typing import Dict, List
+from typing import Dict
 
 from src.domain.value_objects import CurrencyId
+from src.interactor.dtos.currency_dtos import (
+    CreateCurrencyInputDto,
+    CreateCurrencyOutputDto,
+    DetailCurrencyOutputDto,
+    ListCurrencyInputDto,
+    ListCurrencyOutputDto,
+    UpdateCurrencyInputDto,
+    UpdateCurrencyOutputDto,
+)
 from src.interactor.errors.error_classes import EntityDoesNotExist
 from src.interactor.interfaces.logger.logger import LoggerInterface
-from src.interactor.interfaces.repotisories.currency_repository import CurrencyRepositoryInterface
-from src.interactor.interfaces.presenters.currency_presenter import CreateCurrencyPresenterInterface, \
-    UpdateCurrencyPresenterInterface, ListCurrencyPresenterInterface, DetailCurrencyPresenterInterface
-from src.interactor.dtos.currency_dtos import CreateCurrencyInputDto, CreateCurrencyOutputDto, UpdateCurrencyInputDto, \
-    UpdateCurrencyOutputDto, ListCurrencyInputDto, ListCurrencyOutputDto, DetailCurrencyOutputDto
-from src.interactor.validations.currency_validation import CreateCurrencyInputDtoValidator, \
-    UpdateCurrencyInputDtoValidator, ListCurrencyInputDtoValidator
+from src.interactor.interfaces.presenters.currency_presenter import (
+    CreateCurrencyPresenterInterface,
+    DetailCurrencyPresenterInterface,
+    ListCurrencyPresenterInterface,
+    UpdateCurrencyPresenterInterface,
+)
+from src.interactor.interfaces.repotisories.currency_repository import (
+    CurrencyRepositoryInterface,
+)
+from src.interactor.validations.currency_validation import (
+    CreateCurrencyInputDtoValidator,
+    ListCurrencyInputDtoValidator,
+    UpdateCurrencyInputDtoValidator,
+)
 
 
 class ListCurrencyUseCase:
@@ -114,5 +130,5 @@ class DeleteCurrencyUseCase:
             self.logger.log_error(f'Currency id {currency_id} not found in repository')
             raise EntityDoesNotExist(f'Currency id {currency_id} not found')
 
-        currency = self.repository.delete(currency_id)
+        self.repository.delete(currency_id)
         self.logger.log_info("Currency deleted successfully")

@@ -1,7 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
+from django.contrib import admin
+from django.urls import include, path
 from src.application import urls
 
 urlpatterns = [

@@ -1,12 +1,15 @@
 import os
 from typing import List
 
-import django
 from dotenv import load_dotenv
+
+import django
 from src.domain.entities.currency import Currency
 from src.domain.value_objects import CurrencyId
 from src.interactor.errors.error_classes import EntityDoesNotExist
-from src.interactor.interfaces.repotisories.currency_repository import CurrencyRepositoryInterface
+from src.interactor.interfaces.repotisories.currency_repository import (
+    CurrencyRepositoryInterface,
+)
 
 load_dotenv()
 settings_module = f"src.application.config.settings.{os.getenv('DJANGO_ENV')}"

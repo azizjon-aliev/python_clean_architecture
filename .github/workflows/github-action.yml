@@ -23,6 +23,5 @@ jobs:
         run: poetry install --no-root
       - name: Run tests
         run: |
-          cd ./src
           echo "DJANGO_SECRET_KEY=django-secret-key" > ./.env
           poetry run pytest

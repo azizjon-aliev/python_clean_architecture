@@ -1,0 +1,27 @@
+name: Github Actions Demo
+on:
+  pull_request:
+jobs:
+  run_tests:
+    name: ${{ github.actor }} is testing out github actions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11']
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.poetry/bin:$PATH"
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: poetry install --no-root
+      - name: Run tests
+        run: |
+          echo "DJANGO_SECRET_KEY=django-secret-key" > ./.env
+          poetry run pytest

@@ -2,11 +2,11 @@
 name = "ecommerce"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Azizjon <azizaliev2337@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 django = "^4.2.6"
 djangorestframework = "^3.14.0"
 python-dotenv = "^1.0.0"
@@ -43,7 +43,7 @@ src = ["src", "tests"]
 
 include = ["*.py", "*.pyi", "**/pyproject.toml", "*.ipynb"]
 
-target-version = "py310"
+target-version = "py311"
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 exclude = [

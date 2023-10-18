@@ -1,0 +1,21 @@
+name: Github Actions Demo
+on:
+  pull_request:
+jobs:
+  run_tests:
+    name: ${{ github.actor }} is testing out github actions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11']
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: poetry install --dev
+      - name: Run tests
+        run: pytest

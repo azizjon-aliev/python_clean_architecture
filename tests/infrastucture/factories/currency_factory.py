@@ -1,8 +1,6 @@
 import string
 
-import factory
 from factory import django, fuzzy
-
 from src.infrastructure.models import Currency
 
 

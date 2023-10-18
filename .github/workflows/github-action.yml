@@ -16,7 +16,7 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.poetry/bin:$PATH"
       - name: Set up python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: 3.11
       - name: Install dependencies

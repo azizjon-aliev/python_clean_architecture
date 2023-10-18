@@ -19,6 +19,7 @@ drf-spectacular = "^0.26.5"
 ruff = "^0.1.0"
 black = "^23.9.1"
 pytest-django = "^4.5.2"
+factory-boy = "^3.3.0"
 
 [build-system]
 requires = ["poetry-core"]

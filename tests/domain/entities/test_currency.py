@@ -1,14 +1,6 @@
-import pytest
-
 from src.domain.entities.currency import Currency
-from src.domain.value_objects import CurrencyId
 
-data = {
-    "currency_id": 1,
-    "code": "USD",
-    "name": "US Dollar",
-    "symbol": "$"
-}
+data = {"currency_id": 1, "code": "USD", "name": "US Dollar", "symbol": "$"}
 
 
 def test_currency_creation():
@@ -38,4 +30,3 @@ def test_currency_equality():
     currency1: Currency = Currency.from_dict(data=data)
     currency2: Currency = Currency.from_dict(data=data)
     assert currency1 == currency2
-

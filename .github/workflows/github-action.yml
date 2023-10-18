@@ -7,19 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.9', '3.10', '3.11' ]
+        python-version: ['3.9', '3.10', '3.11']
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
-      - name: Set up python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+        uses: actions/checkout@v2
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.poetry/bin:$PATH"
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: poetry install --dev
+        run: poetry install --no-root
       - name: Run tests
-        run: pytest
+        run: poetry run pytest

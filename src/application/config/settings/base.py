@@ -70,7 +70,7 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation."
-                "UserAttributeSimilarityValidator",
+        "UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -91,10 +91,10 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -105,12 +105,12 @@ REST_FRAMEWORK = {
 
 # SWAGGER
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'E-commerce API Documentation',
-    'DESCRIPTION': 'Description api',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    'SPECTACULAR_DEFAULTS': {
-        'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
+    "TITLE": "E-commerce API Documentation",
+    "DESCRIPTION": "Description api",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SPECTACULAR_DEFAULTS": {
+        "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
     },
-    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
 }

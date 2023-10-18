@@ -48,7 +48,7 @@ class CurrencyRepository(CurrencyRepositoryInterface):
         instance.delete()
 
     def list(self, skip: int = 0, limit: int = 100) -> List[Currency]:
-        currency_models = CurrencyModel.objects.all()[skip: skip + limit]
+        currency_models = CurrencyModel.objects.all()[skip : skip + limit]
         return [self.__decode_model(instance) for instance in currency_models]
 
     def get(self, currency_id: CurrencyId) -> Currency:
@@ -64,7 +64,7 @@ class CurrencyRepository(CurrencyRepositoryInterface):
         return self.__decode_model(instance)
 
     def update(
-            self, currency_id: CurrencyId, code: str, name: str, symbol: str
+        self, currency_id: CurrencyId, code: str, name: str, symbol: str
     ) -> Currency:
         instance = CurrencyModel.objects.filter(pk=currency_id).first()
 

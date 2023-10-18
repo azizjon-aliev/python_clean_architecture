@@ -18,6 +18,7 @@ drf-spectacular = "^0.26.5"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.0"
 black = "^23.9.1"
+pytest-django = "^4.5.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -69,3 +70,8 @@ exclude = [
 
 [tool.ruff.isort]
 known-first-party = ["django", "rest_framework"]
+
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "src.application.config.settings.test"
+python_files = ["test_*.py", "*_test.py", "tests/*.py"]

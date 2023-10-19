@@ -1,7 +1,7 @@
 from src.interactor.dtos.currency_dtos import CreateCurrencyInputDto
 
 
-def test_create_currency_input_dto():
+def test_create_currency_input_dto() -> None:
     data = {"code": "USD", "name": "US Dollar", "symbol": "$"}
 
     input_dto = CreateCurrencyInputDto(**data)

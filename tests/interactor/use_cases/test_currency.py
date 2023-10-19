@@ -46,7 +46,7 @@ repository = CurrencyRepository()
 
 
 @pytest.mark.django_db
-def test_list_currency_use_case():
+def test_list_currency_use_case() -> None:
     use_case = ListCurrencyUseCase(
         repository=repository,
         presenter=ListCurrencyPresenter(),
@@ -57,12 +57,12 @@ def test_list_currency_use_case():
 
     assert isinstance(response.get("currencies"), list)
     assert all(
-        [isinstance(currency, Currency) for currency in response.get("currencies")]
+        isinstance(currency, Currency) for currency in response.get("currencies")
     )
 
 
 @pytest.mark.django_db
-def test_create_currency_use_case():
+def test_create_currency_use_case() -> None:
     data = {
         "code": "USD",
         "name": "Dollar",
@@ -83,7 +83,7 @@ def test_create_currency_use_case():
 
 
 @pytest.mark.django_db
-def test_update_currency_use_case():
+def test_update_currency_use_case() -> None:
     currency_old = CurrencyFactory.create()
 
     use_case = UpdateCurrencyUseCase(
@@ -105,7 +105,7 @@ def test_update_currency_use_case():
 
 
 @pytest.mark.django_db
-def test_delete_currency_use_case():
+def test_delete_currency_use_case() -> None:
     currency = CurrencyFactory.create()
 
     use_case = DeleteCurrencyUseCase(

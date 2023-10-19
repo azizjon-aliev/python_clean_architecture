@@ -9,7 +9,7 @@ client = APIClient()
 
 
 @pytest.mark.django_db
-def test_list_currency_api_view():
+def test_list_currency_api_view() -> None:
     currency_count = 10
     CurrencyFactory.create_batch(currency_count)
 
@@ -25,7 +25,7 @@ def test_list_currency_api_view():
 
 
 @pytest.mark.django_db
-def test_retrieve_currency_api_view():
+def test_retrieve_currency_api_view() -> None:
     currency = CurrencyFactory()
     response = client.get(
         path=reverse("currency-detail", kwargs={"pk": currency.id}), format="json"
@@ -39,7 +39,7 @@ def test_retrieve_currency_api_view():
 
 
 @pytest.mark.django_db
-def test_create_currency_api_view():
+def test_create_currency_api_view() -> None:
     data = {
         "code": "USD",
         "name": "US Dollar",
@@ -54,7 +54,7 @@ def test_create_currency_api_view():
 
 
 @pytest.mark.django_db
-def test_update_currency_api_view():
+def test_update_currency_api_view() -> None:
     currency = CurrencyFactory()
     data = {
         "code": "EUR",
@@ -74,7 +74,7 @@ def test_update_currency_api_view():
 
 
 @pytest.mark.django_db
-def test_delete_currency_api_view():
+def test_delete_currency_api_view() -> None:
     currency = CurrencyFactory()
     response = client.delete(
         path=reverse("currency-detail", kwargs={"pk": currency.id}), format="json"

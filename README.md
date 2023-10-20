@@ -1,4 +1,4 @@
-# Python Inspiration: Clean Architecture Project Pattern
+# Python Inspiration Clean Architecture Project Pattern
 
 ## 🔍 What Is It?
 This template serves as your trustworthy compass in the realm of Python development. It's built upon the principles of Clean Architecture, which empower you to create code that's readable, maintainable, and scalable.

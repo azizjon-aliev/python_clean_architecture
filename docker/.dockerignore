@@ -94,3 +94,6 @@ docs/_build/
 
 # VSCode Editor
 .vscode
+
+media
+static

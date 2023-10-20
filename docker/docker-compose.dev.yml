@@ -33,9 +33,8 @@ services:
     networks:
       - default_network
     volumes:
-      - ../scripts:/code/scripts
-      - ../src:/code/src
-      - ../tests:/code/tests
+      - ../media:/code/media
+      - ../static:/code/static
 
 volumes:
   pgdata_development:

@@ -13,6 +13,7 @@ echo "Change to working directory $(pwd)"
 
 ## Run database migrations
 python manage.py migrate
+python manage.py collectstatic --no-input
 
 if [ ${DJANGO_ENV} = 'development' ]; then
     # Create superuser if not exists
@@ -20,7 +21,10 @@ if [ ${DJANGO_ENV} = 'development' ]; then
     export DJANGO_SUPERUSER_PASSWORD="admin"
     export DJANGO_SUPERUSER_EMAIL="admin@admin.com"
     python manage.py createsuperuser --noinput || echo "Superuser already exists."
+
+    # Start API server
+    python manage.py runserver 0.0.0.0:${DJANGO_PORT}
+else
+    gunicorn src.application.config.wsgi:application --bind 0.0.0.0:${DJANGO_PORT}
 fi
 
-# Start API server
-python manage.py runserver 0.0.0.0:${DJANGO_PORT}

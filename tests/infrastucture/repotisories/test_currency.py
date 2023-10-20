@@ -8,7 +8,7 @@ repository = CurrencyRepository()
 
 
 @pytest.mark.django_db
-def test_get_currency_repository():
+def test_get_currency_repository() -> None:
     currency = CurrencyFactory.create()
     response: Currency = repository.get(currency_id=currency.pk)
 
@@ -19,7 +19,7 @@ def test_get_currency_repository():
 
 
 @pytest.mark.django_db
-def test_create_currency_repository():
+def test_create_currency_repository() -> None:
     data = {
         "code": "USD",
         "name": "Dollar",
@@ -35,7 +35,7 @@ def test_create_currency_repository():
 
 
 @pytest.mark.django_db
-def test_update_currency_repository():
+def test_update_currency_repository() -> None:
     currency_old = CurrencyFactory.create()
     data = {
         "code": "USD",
@@ -52,7 +52,7 @@ def test_update_currency_repository():
 
 
 @pytest.mark.django_db
-def test_delete_currency_repository():
+def test_delete_currency_repository() -> None:
     currency = CurrencyFactory.create()
     repository.delete(currency_id=currency.pk)
 

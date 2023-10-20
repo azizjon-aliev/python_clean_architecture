@@ -105,8 +105,8 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
                 logger=self.logger,
             )
             result = use_case.execute(pk)
-        except EntityDoesNotExist:
-            raise Http404()
+        except EntityDoesNotExist as e:
+            raise Http404() from e
 
         # response
         return Response(
@@ -162,8 +162,8 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
             )
             input_dto = UpdateCurrencyInputDto(**serializer.data)
             result = use_case.execute(pk, input_dto)
-        except EntityDoesNotExist:
-            raise Http404()
+        except EntityDoesNotExist as e:
+            raise Http404() from e
 
         # response
         return Response(
@@ -187,7 +187,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
                 logger=self.logger,
             )
             use_case.execute(pk)
-        except EntityDoesNotExist:
-            raise Http404()
+        except EntityDoesNotExist as e:
+            raise Http404() from e
 
         return Response(data=None, status=status.HTTP_204_NO_CONTENT)

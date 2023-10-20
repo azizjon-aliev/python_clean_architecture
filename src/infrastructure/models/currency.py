@@ -6,7 +6,7 @@ class Currency(models.Model):
     name: str = models.CharField(verbose_name="Название", max_length=100)
     symbol: str = models.CharField(verbose_name="Символ", max_length=10)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
     class Meta:

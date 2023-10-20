@@ -1,9 +1,14 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "ecommerce"
 version = "0.1.0"
-description = ""
+description = "Python Clean Architecture Template"
 authors = ["Azizjon <azizaliev2337@gmail.com>"]
 readme = "README.md"
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -13,6 +18,8 @@ python-dotenv = "^1.0.0"
 django-cors-headers = "^4.3.0"
 pydantic = "^2.4.2"
 drf-spectacular = "^0.26.5"
+gunicorn = "^21.2.0"
+psycopg2-binary = "^2.9.9"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -21,31 +28,33 @@ black = "^23.9.1"
 pytest-django = "^4.5.2"
 factory-boy = "^3.3.0"
 pre-commit = "^3.5.0"
+mypy = "^1.6.1"
+django-stubs = "^4.2.5"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_missing_imports = true
+check_untyped_defs = true
 
 
 [tool.ruff]
 select = [
-    # Pyflakes
-    "F",
-    # Pycodestyle
-    "E",
-    "W",
-    # isort
-    "I001"
+    "I001",
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
 ]
-
-# Note: Ruff supports a top-level `src` option in lieu of isort's `src_paths` setting.
 src = ["src", "tests"]
-
 include = ["*.py", "*.pyi", "**/pyproject.toml", "*.ipynb"]
-
 target-version = "py311"
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
 exclude = [
     ".bzr",
     ".direnv",

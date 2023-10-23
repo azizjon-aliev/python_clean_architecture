@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  api:
+    command: sh scripts/start_api.sh
+    restart: on-failure
+    environment:
+      - DJANGO_ENV=test
+      - DJANGO_PORT=8000
+    volumes:
+      - ../scripts:/code/scripts
+      - ../src:/code/src
+      - ../tests:/code/tests
+    networks:
+      - default_network
+
+  db:
+    restart: on-failure
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-ecommerce}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data
+    networks:
+      - default_network
+
+
+  nginx:
+    depends_on:
+      - api
+    networks:
+      - default_network
+    volumes:
+      - ../media:/code/media
+      - ../static:/code/static
+
+volumes:
+  pgdata_test:
+    driver: local
+    name: pgdata_test
+
+networks:
+  default_network:

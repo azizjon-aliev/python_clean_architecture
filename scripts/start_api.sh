@@ -5,7 +5,7 @@ set -o nounset
 
 # Check env variables
 echo "DJANGO_ENV is ${DJANGO_ENV}"
-echo "Port ${DJANGO_PORT} exposed for Forex API"
+echo "Port ${DJANGO_PORT} exposed for E-commerce API"
 
 # Set working directory
 cd ${PROJECT_DIR}

@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  api:
+    command: sh scripts/start_api.sh
+    restart: on-failure
+    environment:
+      - DJANGO_ENV=production
+      - DJANGO_PORT=${DJANGO_PORT}
+    volumes:
+      - ../scripts:/code/scripts
+      - ../src:/code/src
+      - ../tests:/code/tests
+    networks:
+      - default_network
+
+  db:
+      restart: on-failure
+      environment:
+        - POSTGRES_DB=${POSTGRES_DB}
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_PORT=${POSTGRES_PORT}
+      volumes:
+        - pgdata_production:/var/lib/postgresql/data
+      networks:
+        - default_network
+
+
+  nginx:
+    depends_on:
+      - api
+    networks:
+      - default_network
+    volumes:
+      - ../media:/code/media
+      - ../static:/code/static
+
+volumes:
+  pgdata_production:
+      driver: local
+      name: pgdata_production
+
+networks:
+  default_network:

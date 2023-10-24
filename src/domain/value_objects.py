@@ -1,1 +1,2 @@
 CurrencyId = int
+RegionId = int

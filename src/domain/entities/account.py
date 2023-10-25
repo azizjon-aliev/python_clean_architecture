@@ -1,8 +1,8 @@
+import re
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Optional
 
-from django.utils import timezone
 from src.domain.value_objects import UserId
 
 
@@ -24,8 +24,8 @@ class User:
 
     created_by: Optional["User"]
     updated_by: Optional["User"]
-    created_at: datetime = timezone.now
-    updated_at: datetime = timezone.now
+    created_at: datetime
+    updated_at: datetime
 
     @classmethod
     def from_dict(cls, data):
@@ -33,3 +33,11 @@ class User:
 
     def to_dict(self):
         return asdict(self)
+
+    @staticmethod
+    def check_phone_number(phone: str) -> bool:
+        return bool(re.match(r"^992\d{9}$", phone))
+
+    @staticmethod
+    def check_password(password: str) -> bool:
+        return bool(re.match(r"^[!-~]+$", password))

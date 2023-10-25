@@ -1,3 +1,4 @@
+import re
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Optional
@@ -32,3 +33,11 @@ class User:
 
     def to_dict(self):
         return asdict(self)
+
+    @staticmethod
+    def check_phone_number(phone: str) -> bool:
+        return bool(re.match(r"^992\d{9}$", phone))
+
+    @staticmethod
+    def check_password(password: str) -> bool:
+        return bool(re.match(r"^[!-~]+$", password))

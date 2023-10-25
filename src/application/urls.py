@@ -9,5 +9,5 @@ router.register(r"currencies", CurrencyAPIView, basename="currency")
 urlpatterns = [
     path("", include(router.urls)),
     path("register/step/1/", RegisterAPIView.as_view({"post": "step1"})),
-    path("register/step/2/", RegisterAPIView.as_view({"post": "step2"})),
+    # path("register/step/2/", RegisterAPIView.as_view({"post": "step2"})),
 ]

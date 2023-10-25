@@ -31,10 +31,7 @@ class CurrencyRepository(CurrencyRepositoryInterface):
         )
 
     def exists(self, **kwargs) -> bool:
-        if CurrencyModel.objects.filter(**kwargs).exists():
-            return True
-        else:
-            return False
+        return bool(CurrencyModel.objects.filter(**kwargs).exists())
 
     def count(self) -> int:
         return CurrencyModel.objects.count()

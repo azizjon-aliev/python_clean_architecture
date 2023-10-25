@@ -27,7 +27,7 @@ class User(AbstractUser, Timestampble, Auditable):
         help_text="Введите с 992 и 9-значный номер телефона",
     )
     otp = models.IntegerField(default=0)
-    is_verify = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = []

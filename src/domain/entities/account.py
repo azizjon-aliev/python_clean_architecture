@@ -8,16 +8,15 @@ from src.domain.value_objects import UserId
 
 @dataclass
 class User:
-    "jsdkjkdsjkds"
     user_id: UserId
     email: Optional[str]
     phone: str
     password: str
+
     is_staff: Optional[bool]
     is_active: Optional[bool]
     is_superuser: Optional[bool]
     date_joined: Optional[datetime]
-
     otp: Optional[int]
     is_verified: Optional[bool]
     role: str

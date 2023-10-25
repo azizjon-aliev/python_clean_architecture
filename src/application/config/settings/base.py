@@ -101,9 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = os.environ.get("DJANGO_LANGUAGE_CODE", "en-us")
+LANGUAGE_CODE = os.environ.get("DJANGO_LANGUAGE_CODE") or "en-us"
 
-TIME_ZONE = os.environ.get("DJANGO_TIME_ZONE", "UTC")
+TIME_ZONE = os.environ.get("DJANGO_TIME_ZONE") or "UTC"
 
 USE_I18N = True
 

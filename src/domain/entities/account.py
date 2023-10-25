@@ -2,7 +2,6 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from typing import Optional
 
-from django.utils import timezone
 from src.domain.value_objects import UserId
 
 

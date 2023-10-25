@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from src.domain.entities.account import User, UserId
 
 data = {
@@ -79,8 +80,8 @@ def test_user_from_dict() -> None:
 
 def test_user_to_dict() -> None:
     user: User = User.from_dict(data=data)
-    data['created_by'] = user.created_by.to_dict()
-    data['updated_by'] = user.updated_by.to_dict()
+    data["created_by"] = user.created_by.to_dict()
+    data["updated_by"] = user.updated_by.to_dict()
     assert user.to_dict() == data
 
 

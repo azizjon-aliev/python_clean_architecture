@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from src.domain.entities.account import User, UserId
 
 data = {
@@ -15,14 +14,14 @@ data = {
     "date_joined": datetime.now(),
     "role": "admin",
     "company": None,
-    "created_at": datetime.now,
-    "updated_at": datetime.now,
+    "created_at": datetime.now(),
+    "updated_at": datetime.now(),
     "created_by": None,
     "updated_by": None,
 }
 
 
-def test_user_creation_with_not_created_by_and_updated_by() -> None:
+def test_user_creation() -> None:
     user: User = User(**data)
 
     assert user.user_id == data.get("user_id")
@@ -44,14 +43,13 @@ def test_user_creation_with_not_created_by_and_updated_by() -> None:
 
 def test_user_creation_with_created_by_and_updated_by() -> None:
     data.pop("user_id")
-    created_by = User(**data, user_id=UserId("1"))
-    updated_by = User(**data, user_id=UserId("2"))
+    created_by: User = User(**data, user_id=UserId("1"))
+    updated_by: User = User(**data, user_id=UserId("2"))
 
-    data.pop("created_by")
-    data.pop("updated_by")
-    user: User = User(
-        **data, user_id=UserId("3"), created_by=created_by, updated_by=updated_by
-    )
+    data["user_id"] = UserId("3")
+    data["created_by"] = created_by
+    data["updated_by"] = updated_by
+    user: User = User(**data)
 
     assert user.created_by == created_by
     assert user.updated_by == updated_by
@@ -81,6 +79,8 @@ def test_user_from_dict() -> None:
 
 def test_user_to_dict() -> None:
     user: User = User.from_dict(data=data)
+    data['created_by'] = user.created_by.to_dict()
+    data['updated_by'] = user.updated_by.to_dict()
     assert user.to_dict() == data
 
 

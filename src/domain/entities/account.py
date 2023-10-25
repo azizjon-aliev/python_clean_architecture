@@ -24,8 +24,8 @@ class User:
 
     created_by: Optional["User"]
     updated_by: Optional["User"]
-    created_at: datetime = timezone.now
-    updated_at: datetime = timezone.now
+    created_at: datetime
+    updated_at: datetime
 
     @classmethod
     def from_dict(cls, data):

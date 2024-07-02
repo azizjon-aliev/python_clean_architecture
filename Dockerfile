@@ -1,4 +1,4 @@
-FROM python:3.11-slim-buster
+FROM python:3.12-slim
 
 # environment variables
 ARG DJANGO_ENV
@@ -38,7 +38,7 @@ COPY ./pyproject.toml ./poetry.lock ${PROJECT_DIR}/
 RUN poetry install $(test "$DJANGO_ENV" = production && echo "--no-dev") --no-interaction --no-ansi
 
 # Creating folders, and files for a project:
-#COPY . /code
+COPY . /code
 
 # copy script as an entry point:
 COPY ./scripts ${PROJECT_DIR}/scripts/

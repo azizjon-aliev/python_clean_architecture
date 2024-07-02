@@ -1,0 +1,12 @@
+services:
+  nginx:
+    container_name: nginx_container
+    image: ghcr.io/azizjon-aliev/python-clean-architecture-nginx:latest
+
+  api:
+    container_name: api_container
+    image: ghcr.io/azizjon-aliev/python-clean-architecture-api:latest
+
+  db:
+    container_name: db_container
+    image: postgres:latest

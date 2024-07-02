@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.11']
+        python-version: ['3.12']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
       - name: Set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.12
       - name: Install dependencies
         run: poetry install --no-root
       - name: Run tests

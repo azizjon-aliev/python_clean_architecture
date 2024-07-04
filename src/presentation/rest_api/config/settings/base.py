@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
-    # project
+    # for django orm
     "src.infrastructure",
-    "src.application.admin_panel",
+    # for django admin
+    "src.presentation.admin_panel",
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "src.application.config.urls"
+ROOT_URLCONF = "src.presentation.rest_api.config.urls"
 
 TEMPLATES = [
     {
@@ -76,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "src.application.config.wsgi.application"
+WSGI_APPLICATION = "src.presentation.rest_api.config.wsgi.application"
 
 DATABASES = {
     "default": {

@@ -11,7 +11,7 @@ from src.interactor.interfaces.repotisories.account_repository import (
 )
 
 load_dotenv()
-settings_module = f"src.application.config.settings.{os.getenv('DJANGO_ENV')}"
+settings_module = f"src.presentation.rest_api.config.settings.{os.getenv('DJANGO_ENV')}"
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
 
 django.setup()
@@ -42,19 +42,19 @@ class UserRepository(UserRepositoryInterface):
         )
 
     def create(
-            self,
-            phone: str,
-            email: Optional[str],
-            password: str,
-            role: str,
-            is_staff: Optional[bool] = False,
-            is_active: Optional[bool] = False,
-            is_superuser: Optional[bool] = False,
-            otp: Optional[int] = 0,
-            is_verified: Optional[bool] = False,
-            company: Optional[str] = None,
-            created_by: Optional[str] = None,
-            updated_by: Optional[str] = None,
+        self,
+        phone: str,
+        email: Optional[str],
+        password: str,
+        role: str,
+        is_staff: Optional[bool] = False,
+        is_active: Optional[bool] = False,
+        is_superuser: Optional[bool] = False,
+        otp: Optional[int] = 0,
+        is_verified: Optional[bool] = False,
+        company: Optional[str] = None,
+        created_by: Optional[str] = None,
+        updated_by: Optional[str] = None,
     ) -> User:
         if self.exists(phone=phone):
             raise EntityAlreadyExists("Phone already exists")

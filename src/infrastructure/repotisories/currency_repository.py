@@ -12,7 +12,7 @@ from src.interactor.interfaces.repotisories.currency_repository import (
 )
 
 load_dotenv()
-settings_module = f"src.application.config.settings.{os.getenv('DJANGO_ENV')}"
+settings_module = f"src.presentation.rest_api.config.settings.{os.getenv('DJANGO_ENV')}"
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
 
 django.setup()

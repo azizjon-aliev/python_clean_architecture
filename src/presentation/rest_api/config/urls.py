@@ -8,7 +8,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from src.application import urls
+from src.presentation.rest_api import urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),

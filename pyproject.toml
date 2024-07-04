@@ -86,5 +86,5 @@ known-first-party = ["django", "rest_framework"]
 
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "src.application.config.settings.test"
+DJANGO_SETTINGS_MODULE = "src.presentation.rest_api.config.settings.test"
 python_files = ["test_*.py", "*_test.py", "tests/*.py"]

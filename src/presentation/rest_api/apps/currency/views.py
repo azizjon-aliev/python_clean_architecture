@@ -9,15 +9,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from src.application.interfaces.currency_view import CurrencyViewInterface
-from src.application.presenters.currency_presenter import (
-    CreateCurrencyPresenter,
-    DetailCurrencyPresenter,
-    ListCurrencyPresenter,
-    UpdateCurrencyPresenter,
-)
 from src.domain.value_objects import CurrencyId
-from src.infrastructure.loggers.logger_default import LoggerDefault
-from src.infrastructure.repotisories.currency_repository import CurrencyRepository
 from src.interactor.dtos.currency_dtos import (
     CreateCurrencyInputDto,
     ListCurrencyInputDto,
@@ -40,15 +32,11 @@ from src.presentation.rest_api.apps.currency.serializers import (
     UpdateCurrencyRequestSerializer,
     UpdateCurrencyResponseSerializer,
 )
+from src.presentation.rest_api.config.containers import container
 
 
 class CurrencyAPIView(ViewSet, CurrencyViewInterface):
     authentication_classes = ()
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.repository = CurrencyRepository()
-        self.logger = LoggerDefault()
 
     @extend_schema(
         responses={HTTPStatus.OK: ListCurrencyResponseSerializer},
@@ -76,11 +64,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         }
 
         # logic
-        use_case = ListCurrencyUseCase(
-            presenter=ListCurrencyPresenter(),
-            repository=self.repository,
-            logger=self.logger,
-        )
+        use_case = container.resolve(ListCurrencyUseCase)
         input_dto = ListCurrencyInputDto(**parameters)
         result = use_case.execute(input_dto)
 
@@ -100,11 +84,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
     def retrieve(self, request: Request, pk: Optional[CurrencyId]) -> Response:
         # logic
         try:
-            use_case = DetailCurrencyUseCase(
-                presenter=DetailCurrencyPresenter(),
-                repository=self.repository,
-                logger=self.logger,
-            )
+            use_case = container.resolve(DetailCurrencyUseCase)
             result = use_case.execute(pk)
         except EntityDoesNotExist as e:
             raise Http404() from e
@@ -126,11 +106,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         serializer.is_valid(raise_exception=True)
 
         # logic
-        use_case = CreateCurrencyUseCase(
-            presenter=CreateCurrencyPresenter(),
-            repository=self.repository,
-            logger=self.logger,
-        )
+        use_case = container.resolve(CreateCurrencyUseCase)
         input_dto = CreateCurrencyInputDto(**serializer.data)
         result = use_case.execute(input_dto)
 
@@ -156,11 +132,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
         # logic
         try:
-            use_case = UpdateCurrencyUseCase(
-                presenter=UpdateCurrencyPresenter(),
-                repository=self.repository,
-                logger=self.logger,
-            )
+            use_case = container.resolve(UpdateCurrencyUseCase)
             input_dto = UpdateCurrencyInputDto(**serializer.data)
             result = use_case.execute(pk, input_dto)
         except EntityDoesNotExist as e:
@@ -183,10 +155,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
     def destroy(self, request: Request, pk: Optional[CurrencyId]) -> Response:
         # logic
         try:
-            use_case = DeleteCurrencyUseCase(
-                repository=self.repository,
-                logger=self.logger,
-            )
+            use_case = container.resolve(DeleteCurrencyUseCase)
             use_case.execute(pk)
         except EntityDoesNotExist as e:
             raise Http404() from e

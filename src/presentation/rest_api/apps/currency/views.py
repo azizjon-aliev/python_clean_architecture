@@ -1,3 +1,4 @@
+from http import HTTPMethod, HTTPStatus
 from typing import Optional
 
 from drf_spectacular.utils import OpenApiParameter, extend_schema
@@ -13,15 +14,6 @@ from src.application.presenters.currency_presenter import (
     DetailCurrencyPresenter,
     ListCurrencyPresenter,
     UpdateCurrencyPresenter,
-)
-from src.application.serializers.core import NotFoundResponseSerializer
-from src.application.serializers.currency import (
-    CreateCurrencyRequestSerializer,
-    CreateCurrencyResponseSerializer,
-    DetailCurrencyResponseSerializer,
-    ListCurrencyResponseSerializer,
-    UpdateCurrencyRequestSerializer,
-    UpdateCurrencyResponseSerializer,
 )
 from src.domain.value_objects import CurrencyId
 from src.infrastructure.loggers.logger_default import LoggerDefault
@@ -39,6 +31,15 @@ from src.interactor.use_cases.currency import (
     ListCurrencyUseCase,
     UpdateCurrencyUseCase,
 )
+from src.presentation.rest_api.apps.common.serializers import NotFoundResponseSerializer
+from src.presentation.rest_api.apps.currency.serializers import (
+    CreateCurrencyRequestSerializer,
+    CreateCurrencyResponseSerializer,
+    DetailCurrencyResponseSerializer,
+    ListCurrencyResponseSerializer,
+    UpdateCurrencyRequestSerializer,
+    UpdateCurrencyResponseSerializer,
+)
 
 
 class CurrencyAPIView(ViewSet, CurrencyViewInterface):
@@ -50,8 +51,8 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         self.logger = LoggerDefault()
 
     @extend_schema(
-        responses={200: ListCurrencyResponseSerializer},
-        methods=["GET"],
+        responses={HTTPStatus.OK: ListCurrencyResponseSerializer},
+        methods=[HTTPMethod.POST],
         parameters=[
             OpenApiParameter(
                 "skip",
@@ -90,10 +91,10 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
     @extend_schema(
         responses={
-            200: DetailCurrencyResponseSerializer,
-            404: NotFoundResponseSerializer,
+            HTTPStatus.OK: DetailCurrencyResponseSerializer,
+            HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
-        methods=["GET"],
+        methods=[HTTPMethod.GET],
         parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def retrieve(self, request: Request, pk: Optional[CurrencyId]) -> Response:
@@ -116,8 +117,8 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
     @extend_schema(
         request=CreateCurrencyRequestSerializer,
-        responses={201: CreateCurrencyResponseSerializer},
-        methods=["POST"],
+        responses={HTTPStatus.CREATED: CreateCurrencyResponseSerializer},
+        methods=[HTTPMethod.POST],
     )
     def create(self, request: Request) -> Response:
         # request
@@ -142,10 +143,10 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
     @extend_schema(
         request=UpdateCurrencyRequestSerializer,
         responses={
-            200: UpdateCurrencyResponseSerializer,
-            404: NotFoundResponseSerializer,
+            HTTPStatus.OK: UpdateCurrencyResponseSerializer,
+            HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
-        methods=["PATCH"],
+        methods=[HTTPMethod.PATCH],
         parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def partial_update(self, request: Request, pk: Optional[CurrencyId]) -> Response:
@@ -173,10 +174,10 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
     @extend_schema(
         responses={
-            204: None,
-            404: NotFoundResponseSerializer,
+            HTTPStatus.NO_CONTENT: None,
+            HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
-        methods=["DELETE"],
+        methods=[HTTPMethod.DELETE],
         parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def destroy(self, request: Request, pk: Optional[CurrencyId]) -> Response:

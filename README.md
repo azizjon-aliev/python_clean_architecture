@@ -1,4 +1,4 @@
-# Python Inspiration Clean Architecture Project Pattern ()
+# Python Inspiration Clean Architecture Project Pattern
 
 ## 🔍 What Is It?
 This template serves as your trustworthy compass in the realm of Python development. It's built upon the principles of Clean Architecture, which empower you to create code that's readable, maintainable, and scalable.
@@ -48,15 +48,10 @@ $ poetry shell
 
 Create docker images and execute the containers for development. From the project directory:
 ```
-$ docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml --env-file ./.env up -d --build
+$ docker compose up -d --build
 ```
 
 ## Execute tests suite
-
-1. Execute the docker containers with environment variables setup for testing:
-```
-$ docker-compose -f docker/docker-compose.yml -f docker/docker-compose.test.yml --env-file ./.env up -d --build
-```
 
 2. Access running api backend _api_container_ docker container shell:
 ```
@@ -64,7 +59,7 @@ docker exec -it api_container bash
 ```
 3. Execute pytest command from project directory:
 ```
-pytest
+pytest .
 ```
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job.)

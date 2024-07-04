@@ -25,6 +25,6 @@ if [ ${DJANGO_ENV} = 'development' ]; then
     # Start API server
     python manage.py runserver 0.0.0.0:${DJANGO_PORT}
 else
-    gunicorn src.application.config.wsgi:application --bind 0.0.0.0:${DJANGO_PORT}
+    gunicorn src.presentation.rest_api.config.wsgi:application --bind 0.0.0.0:${DJANGO_PORT}
 fi
 

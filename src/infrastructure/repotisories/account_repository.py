@@ -1,27 +1,16 @@
-import os
 from typing import Optional
-
-from dotenv import load_dotenv
-
-import django
 from src.domain.entities.account import User
+from src.domain.value_objects import UserId
+from src.infrastructure.models import User as UserModel
+from src.infrastructure.repotisories.base_repository import AbstractRepository
 from src.interactor.errors.error_classes import EntityAlreadyExists
-from src.interactor.interfaces.repotisories.account_repository import (
-    UserRepositoryInterface,
-)
+from src.interactor.interfaces.repotisories.account_repository import UserRepositoryInterface
 
-load_dotenv()
-settings_module = f"src.presentation.rest_api.config.settings.{os.getenv('DJANGO_ENV')}"
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
+class UserRepository(AbstractRepository[UserModel, UserId], UserRepositoryInterface):
 
-django.setup()
+    model = UserModel
 
-from src.infrastructure.models import User as UserModel  # noqa: E402
-
-
-class UserRepository(UserRepositoryInterface):
-    @staticmethod
-    def __decode_model(instance: UserModel) -> User:
+    def _decode_model(self, instance: UserModel) -> User:
         return User(
             user_id=instance.pk,
             phone=instance.phone,
@@ -79,6 +68,3 @@ class UserRepository(UserRepositoryInterface):
         instance.BASE_ROLE = role
         instance.save()
         return self.__decode_model(instance)
-
-    def exists(self, **kwargs) -> bool:
-        return bool(UserModel.objects.filter(**kwargs).exists())

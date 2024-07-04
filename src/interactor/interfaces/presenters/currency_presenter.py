@@ -1,6 +1,4 @@
-from abc import ABC, abstractmethod
-from typing import Dict
-
+from src.interactor.interfaces.presenters.base_presenter import AbstractPresenterInterface
 from src.interactor.dtos.currency_dtos import (
     CreateCurrencyOutputDto,
     DetailCurrencyOutputDto,
@@ -8,26 +6,14 @@ from src.interactor.dtos.currency_dtos import (
     UpdateCurrencyOutputDto,
 )
 
+class ListCurrencyPresenterInterface(AbstractPresenterInterface[ListCurrencyOutputDto]):
+    pass
 
-class ListCurrencyPresenterInterface(ABC):
-    @abstractmethod
-    def present(self, output_dto: ListCurrencyOutputDto) -> Dict:
-        pass
+class CreateCurrencyPresenterInterface(AbstractPresenterInterface[CreateCurrencyOutputDto]):
+    pass
 
+class UpdateCurrencyPresenterInterface(AbstractPresenterInterface[UpdateCurrencyOutputDto]):
+    pass
 
-class CreateCurrencyPresenterInterface(ABC):
-    @abstractmethod
-    def present(self, output_dto: CreateCurrencyOutputDto) -> Dict:
-        pass
-
-
-class UpdateCurrencyPresenterInterface(ABC):
-    @abstractmethod
-    def present(self, output_dto: UpdateCurrencyOutputDto) -> Dict:
-        pass
-
-
-class DetailCurrencyPresenterInterface(ABC):
-    @abstractmethod
-    def present(self, output_dto: DetailCurrencyOutputDto) -> Dict:
-        pass
+class DetailCurrencyPresenterInterface(AbstractPresenterInterface[DetailCurrencyOutputDto]):
+    pass

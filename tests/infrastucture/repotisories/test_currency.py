@@ -10,7 +10,7 @@ repository = CurrencyRepository()
 @pytest.mark.django_db
 def test_get_currency_repository() -> None:
     currency = CurrencyFactory.create()
-    response: Currency = repository.get(currency_id=currency.pk)
+    response: Currency = repository.get(object_id=currency.pk)
 
     assert isinstance(response, Currency)
     assert response.code == currency.code
@@ -43,7 +43,7 @@ def test_update_currency_repository() -> None:
         "symbol": "$",
     }
 
-    response: Currency = repository.update(currency_id=currency_old.pk, **data)
+    response: Currency = repository.update(object_id=currency_old.pk, **data)
 
     assert isinstance(response, Currency)
     assert response.code == data.get("code")
@@ -54,6 +54,6 @@ def test_update_currency_repository() -> None:
 @pytest.mark.django_db
 def test_delete_currency_repository() -> None:
     currency = CurrencyFactory.create()
-    repository.delete(currency_id=currency.pk)
+    repository.delete(object_id=currency.pk)
 
     assert repository.exists(pk=currency.pk) is False

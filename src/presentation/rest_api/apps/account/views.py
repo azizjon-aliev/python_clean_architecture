@@ -7,7 +7,6 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from src.application.interfaces.account_view import RegisterViewInterface
-from src.application.presenters.account_presenter import RegisterStep1Presenter
 from src.infrastructure.loggers.logger_default import LoggerDefault
 from src.infrastructure.repotisories.account_repository import UserRepository
 from src.interactor.dtos.account_dtos import RegisterStep1InputDto
@@ -17,6 +16,7 @@ from src.presentation.rest_api.apps.account.serializers import (
     RegisterStep1RequestSerializer,
     RegisterStep1ResponseSerializer,
 )
+from src.presentation.rest_api.config.containers import container
 
 
 class RegisterAPIView(ViewSet, RegisterViewInterface):
@@ -45,11 +45,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
             otp=otp,
             password=serializer.data.get("password"),
         )
-        use_case = RegisterStep1UseCase(
-            presenter=RegisterStep1Presenter(),
-            repository=self.repository,
-            logger=self.logger,
-        )
+        use_case = container.resolve(RegisterStep1UseCase)
         result = use_case.execute(input_dto)
         print(
             send_sms_notification(
@@ -80,11 +76,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
             email=serializer.email,
             password=serializer.password,
         )
-        use_case = RegisterStep1UseCase(
-            presenter=RegisterStep1Presenter(),
-            repository=self.repository,
-            logger=self.logger,
-        )
+        use_case = container.resolve(RegisterStep1UseCase)
         result = use_case.execute(input_dto)
 
         # response

@@ -7,9 +7,9 @@ from src.infrastructure.models import User
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     """
-    Административная панель для модели User.
+    Administrative panel for the User model.
 
-    Здесь можно настроить отображение и редактирование пользователей.
+    Here you can customize the display and editing of users.
     """
 
     fieldsets = (

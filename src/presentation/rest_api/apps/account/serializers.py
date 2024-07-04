@@ -18,12 +18,12 @@ class RegisterStep1RequestSerializer(serializers.Serializer):
 
     def validate_email(self, value: str) -> str:
         if value and UserRepository().exists(email=value):
-            raise serializers.ValidationError("Такой email уже используется.")
+            raise serializers.ValidationError("Such email is already in use.")
         return value
 
     def validate_password(self, value: str) -> str:
         if not User.check_password(password=value):
-            raise serializers.ValidationError("Неверный формат пароля.")
+            raise serializers.ValidationError("Incorrect password format.")
         return value
 
     def validate(self, data):
@@ -31,7 +31,7 @@ class RegisterStep1RequestSerializer(serializers.Serializer):
         password_confirmation = data.get("password_confirmation")
 
         if password and password != password_confirmation:
-            raise serializers.ValidationError("Пароли не совпадают")
+            raise serializers.ValidationError("The passwords don't match")
         return data
 
 

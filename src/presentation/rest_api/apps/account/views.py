@@ -49,7 +49,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
         result = use_case.execute(input_dto)
         print(
             send_sms_notification(
-                username=input_dto.username, message=f"Ваш код подтверждения - {otp}"
+                username=input_dto.username, message=f"Your confirmation code - {otp}"
             )
         )
         self.logger.log_info("Send sms notification with otp success")

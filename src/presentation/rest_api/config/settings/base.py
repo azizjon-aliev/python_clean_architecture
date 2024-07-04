@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "src.infrastructure",
     # for django admin
     "src.presentation.admin_panel",
+    # apps
+    "src.presentation.rest_api.apps.account",
 ]
 
 MIDDLEWARE = [

@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class RegisterStep1InputDtoValidator(BaseModel):
-    phone: str
-    email: Optional[str] = None
+    username: str
+    email: str
     otp: int
     password: str

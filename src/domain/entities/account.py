@@ -9,8 +9,8 @@ from src.domain.value_objects import UserId
 @dataclass
 class User:
     user_id: UserId
-    email: Optional[str]
-    phone: str
+    email: str
+    username: str
     password: str
 
     is_staff: Optional[bool]
@@ -18,9 +18,8 @@ class User:
     is_superuser: Optional[bool]
     date_joined: Optional[datetime]
     otp: Optional[int]
+    otp_expire_time: Optional[datetime]
     is_verified: Optional[bool]
-    role: str
-    company: Optional[str]
 
     created_by: Optional["User"]
     updated_by: Optional["User"]
@@ -33,10 +32,6 @@ class User:
 
     def to_dict(self):
         return asdict(self)
-
-    @staticmethod
-    def check_phone_number(phone: str) -> bool:
-        return bool(re.match(r"^992\d{9}$", phone))
 
     @staticmethod
     def check_password(password: str) -> bool:

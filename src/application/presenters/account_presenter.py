@@ -10,6 +10,6 @@ class RegisterStep1Presenter(RegisterStep1PresenterInterface):
     def present(self, output_dto: RegisterStep1OutputDto) -> Dict:
         return {
             "id": output_dto.user.user_id,
-            "phone": output_dto.user.phone,
+            "username": output_dto.user.username,
             "email": output_dto.user.email,
         }

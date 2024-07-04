@@ -17,7 +17,7 @@ class CustomUserAdmin(UserAdmin):
             None,
             {
                 "fields": (
-                    "phone",
+                    "username",
                     "email",
                     "password",
                 )
@@ -43,7 +43,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
-                    "phone",
+                    "username",
                     "email",
                     "password1",
                     "password2",
@@ -51,9 +51,9 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ("phone", "email", "is_staff", "role")
-    search_fields = ("phone",)
-    ordering = ("phone",)
+    list_display = ("username", "email", "is_staff",)
+    search_fields = ("username",)
+    ordering = ("username",)
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:

@@ -1,6 +1,5 @@
 from typing import Dict
 
-from src.infrastructure.constaints import Role
 from src.interactor.dtos.account_dtos import (
     RegisterStep1InputDto,
     RegisterStep1OutputDto,
@@ -28,17 +27,16 @@ class RegisterStep1UseCase:
 
     def execute(self, input_dto: RegisterStep1InputDto) -> Dict:
         RegisterStep1InputDtoValidator(
-            phone=input_dto.phone,
+            username=input_dto.username,
             email=input_dto.email,
             otp=input_dto.otp,
             password=input_dto.password,
         )
         user = self.repository.create(
-            phone=input_dto.phone,
+            username=input_dto.username,
             email=input_dto.email,
             password=input_dto.password,
             is_active=True,
-            role=Role.CLIENT,
             otp=input_dto.otp,
         )
         output_dto = RegisterStep1OutputDto(user)

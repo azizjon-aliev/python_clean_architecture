@@ -5,16 +5,15 @@ from src.domain.entities.account import User, UserId
 data = {
     "user_id": UserId("123"),
     "email": "test@example.com",
-    "phone": "992900000000",
+    "username": "992900000000",
     "password": "secure_password",
     "is_staff": True,
     "is_active": True,
     "is_superuser": True,
     "otp": 1234,
+    "otp_expire_time": None,
     "is_verified": True,
     "date_joined": datetime.now(),
-    "role": "admin",
-    "company": None,
     "created_at": datetime.now(),
     "updated_at": datetime.now(),
     "created_by": None,
@@ -26,16 +25,15 @@ def test_user_creation() -> None:
     user: User = User(**data)
 
     assert user.user_id == data.get("user_id")
-    assert user.phone == data.get("phone")
+    assert user.username == data.get("username")
     assert user.email == data.get("email")
     assert user.password == data.get("password")
     assert user.is_staff is data.get("is_staff")
     assert user.is_active is data.get("is_active")
     assert user.is_superuser is data.get("is_superuser")
     assert user.otp == data.get("otp")
+    assert user.otp_expire_time == data.get("otp_expire_time")
     assert user.is_verified == data.get("is_verified")
-    assert user.role == data.get("role")
-    assert user.company == data.get("company")
     assert user.created_at == data.get("created_at")
     assert user.updated_at == data.get("updated_at")
     assert user.created_by == data.get("created_by")
@@ -62,16 +60,15 @@ def test_user_from_dict() -> None:
     user: User = User.from_dict(data=data)
 
     assert user.user_id == data.get("user_id")
-    assert user.phone == data.get("phone")
+    assert user.username == data.get("username")
     assert user.email == data.get("email")
     assert user.password == data.get("password")
     assert user.is_staff is data.get("is_staff")
     assert user.is_active is data.get("is_active")
     assert user.is_superuser is data.get("is_superuser")
     assert user.otp == data.get("otp")
+    assert user.otp_expire_time == data.get("otp_expire_time")
     assert user.is_verified == data.get("is_verified")
-    assert user.role == data.get("role")
-    assert user.company == data.get("company")
     assert user.created_at == data.get("created_at")
     assert user.updated_at == data.get("updated_at")
     assert user.created_by == data.get("created_by")

@@ -11,17 +11,10 @@ class BaseCurrencySerializer(serializers.Serializer):
 
 
 class RegisterStep1RequestSerializer(serializers.Serializer):
-    phone = serializers.CharField(max_length=13)
+    username = serializers.CharField(max_length=13)
     email = serializers.EmailField()
     password = serializers.CharField(min_length=8)
     password_confirmation = serializers.CharField(min_length=8)
-
-    def validate_phone(self, value: str) -> str:
-        if not User.check_phone_number(phone=value):
-            raise serializers.ValidationError("Неверный формат номер телефона.")
-        if UserRepository().exists(phone=value):
-            raise serializers.ValidationError("Такой номер телефона уже используется.")
-        return value
 
     def validate_email(self, value: str) -> str:
         if value and UserRepository().exists(email=value):
@@ -44,5 +37,5 @@ class RegisterStep1RequestSerializer(serializers.Serializer):
 
 class RegisterStep1ResponseSerializer(serializers.Serializer):
     id = serializers.IntegerField()
-    phone = serializers.CharField()
+    username = serializers.CharField()
     email = serializers.EmailField()

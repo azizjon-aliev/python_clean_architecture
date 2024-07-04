@@ -8,7 +8,7 @@ from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.presenters.account_presenter import (
     RegisterStep1PresenterInterface,
 )
-from src.interactor.interfaces.repotisories.account_repository import (
+from src.interactor.interfaces.repositories.account_repository import (
     UserRepositoryInterface,
 )
 from src.interactor.validations.account_validation import RegisterStep1InputDtoValidator

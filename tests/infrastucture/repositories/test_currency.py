@@ -1,6 +1,6 @@
 import pytest
 from src.domain.entities.currency import Currency
-from src.infrastructure.repotisories.currency_repository import CurrencyRepository
+from src.infrastructure.repositories.currency_repository import CurrencyRepository
 
 from tests.infrastucture.factories.currency_factory import CurrencyFactory
 

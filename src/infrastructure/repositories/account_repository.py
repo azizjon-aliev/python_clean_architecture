@@ -3,9 +3,9 @@ from typing import Optional
 from src.domain.entities.account import User
 from src.domain.value_objects import UserId
 from src.infrastructure.models import User as UserModel
-from src.infrastructure.repotisories.base_repository import AbstractRepository
+from src.infrastructure.repositories.base_repository import AbstractRepository
 from src.interactor.errors.error_classes import EntityAlreadyExists
-from src.interactor.interfaces.repotisories.account_repository import UserRepositoryInterface
+from src.interactor.interfaces.repositories.account_repository import UserRepositoryInterface
 
 class UserRepository(AbstractRepository[UserModel, UserId], UserRepositoryInterface):
 

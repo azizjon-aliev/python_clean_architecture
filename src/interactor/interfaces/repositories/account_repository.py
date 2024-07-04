@@ -2,7 +2,7 @@ from abc import abstractmethod
 from datetime import datetime
 from typing import Optional
 
-from src.interactor.interfaces.repotisories.base_repository import AbstractRepositoryInterface
+from src.interactor.interfaces.repositories.base_repository import AbstractRepositoryInterface
 from src.domain.entities.account import User
 from src.domain.value_objects import CurrencyId
 

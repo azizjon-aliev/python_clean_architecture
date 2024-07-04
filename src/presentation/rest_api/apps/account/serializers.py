@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from src.domain.entities.account import User
-from src.infrastructure.repotisories.account_repository import UserRepository
+from src.infrastructure.repositories.account_repository import UserRepository
 
 
 class BaseCurrencySerializer(serializers.Serializer):

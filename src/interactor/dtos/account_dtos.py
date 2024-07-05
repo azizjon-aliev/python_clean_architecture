@@ -6,8 +6,8 @@ from src.domain.entities.account import User
 
 @dataclass
 class RegisterStep1InputDto:
-    phone: str
-    email: Optional[str]
+    username: str
+    email: str
     otp: int
     password: str
 

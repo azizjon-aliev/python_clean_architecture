@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from src.domain.entities.account import User
-from src.infrastructure.repotisories.account_repository import UserRepository
+from src.infrastructure.repositories.account_repository import UserRepository
 
 
 class BaseCurrencySerializer(serializers.Serializer):
@@ -11,26 +11,19 @@ class BaseCurrencySerializer(serializers.Serializer):
 
 
 class RegisterStep1RequestSerializer(serializers.Serializer):
-    phone = serializers.CharField(max_length=13)
+    username = serializers.CharField(max_length=13)
     email = serializers.EmailField()
     password = serializers.CharField(min_length=8)
     password_confirmation = serializers.CharField(min_length=8)
 
-    def validate_phone(self, value: str) -> str:
-        if not User.check_phone_number(phone=value):
-            raise serializers.ValidationError("Неверный формат номер телефона.")
-        if UserRepository().exists(phone=value):
-            raise serializers.ValidationError("Такой номер телефона уже используется.")
-        return value
-
     def validate_email(self, value: str) -> str:
         if value and UserRepository().exists(email=value):
-            raise serializers.ValidationError("Такой email уже используется.")
+            raise serializers.ValidationError("Such email is already in use.")
         return value
 
     def validate_password(self, value: str) -> str:
         if not User.check_password(password=value):
-            raise serializers.ValidationError("Неверный формат пароля.")
+            raise serializers.ValidationError("Incorrect password format.")
         return value
 
     def validate(self, data):
@@ -38,11 +31,11 @@ class RegisterStep1RequestSerializer(serializers.Serializer):
         password_confirmation = data.get("password_confirmation")
 
         if password and password != password_confirmation:
-            raise serializers.ValidationError("Пароли не совпадают")
+            raise serializers.ValidationError("The passwords don't match")
         return data
 
 
 class RegisterStep1ResponseSerializer(serializers.Serializer):
     id = serializers.IntegerField()
-    phone = serializers.CharField()
+    username = serializers.CharField()
     email = serializers.EmailField()

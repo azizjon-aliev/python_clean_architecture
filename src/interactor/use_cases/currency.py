@@ -18,7 +18,7 @@ from src.interactor.interfaces.presenters.currency_presenter import (
     ListCurrencyPresenterInterface,
     UpdateCurrencyPresenterInterface,
 )
-from src.interactor.interfaces.repotisories.currency_repository import (
+from src.interactor.interfaces.repositories.currency_repository import (
     CurrencyRepositoryInterface,
 )
 from src.interactor.validations.currency_validation import (

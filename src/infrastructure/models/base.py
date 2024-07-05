@@ -16,8 +16,8 @@ class Publishable(models.Model):
 
 
 class Timestampble(models.Model):
-    created_at = models.DateTimeField(verbose_name="Время создания", auto_now_add=True)
-    updated_at = models.DateTimeField(verbose_name="Время изменения", auto_now=True)
+    created_at = models.DateTimeField(verbose_name="Created At", auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name="Updated At", auto_now=True)
 
     class Meta:
         abstract = True
@@ -26,7 +26,7 @@ class Timestampble(models.Model):
 class Auditable(models.Model):
     created_by = models.ForeignKey(
         "infrastructure.User",
-        verbose_name="Кто создал",
+        verbose_name="Created By",
         on_delete=models.SET_NULL,
         related_name="%(class)s_created_by",
         blank=True,
@@ -34,7 +34,7 @@ class Auditable(models.Model):
     )
     updated_by = models.ForeignKey(
         "infrastructure.User",
-        verbose_name="Кто изменил",
+        verbose_name="Updated By",
         on_delete=models.SET_NULL,
         related_name="%(class)s_updated_by",
         blank=True,

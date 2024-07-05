@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from src.application.interfaces.account_view import RegisterViewInterface
 from src.infrastructure.loggers.logger_default import LoggerDefault
-from src.infrastructure.repotisories.account_repository import UserRepository
+from src.infrastructure.repositories.account_repository import UserRepository
 from src.interactor.dtos.account_dtos import RegisterStep1InputDto
 from src.interactor.use_cases.account import RegisterStep1UseCase
 from src.interactor.use_cases.notification import generate_otp, send_sms_notification
@@ -40,7 +40,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
 
         # logic
         input_dto = RegisterStep1InputDto(
-            phone=serializer.data.get("phone"),
+            username=serializer.data.get("username"),
             email=serializer.data.get("email"),
             otp=otp,
             password=serializer.data.get("password"),
@@ -49,7 +49,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
         result = use_case.execute(input_dto)
         print(
             send_sms_notification(
-                phone=input_dto.phone, message=f"Ваш код подтверждения - {otp}"
+                username=input_dto.username, message=f"Your confirmation code - {otp}"
             )
         )
         self.logger.log_info("Send sms notification with otp success")
@@ -72,7 +72,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
 
         # logic
         input_dto = RegisterStep1InputDto(
-            phone=serializer.phone,
+            username=serializer.username,
             email=serializer.email,
             password=serializer.password,
         )

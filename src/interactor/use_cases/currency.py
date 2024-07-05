@@ -24,6 +24,7 @@ from src.interactor.interfaces.repositories.currency_repository import (
     CurrencyRepositoryInterface,
 )
 from src.interactor.validations.currency_validation import (
+    CreateCurrencyInputDtoValidator,
     ListCurrencyInputDtoValidator,
     UpdateCurrencyInputDtoValidator,
 )
@@ -66,9 +67,9 @@ class CreateCurrencyUseCase:
         self.logger = logger
 
     def execute(self, input_dto: CreateCurrencyInputDto) -> Dict:
-        validator = mapper.to(CreateCurrencyUseCase).map(input_dto)
+        validator = mapper.to(CreateCurrencyInputDtoValidator).map(input_dto)
         currency = self.repository.create(**validator.model_dump())
-        output_dto = mapper.to(CreateCurrencyOutputDto).map(currency)
+        output_dto = mapper.to(CreateCurrencyOutputDto).map({"currency": currency})
         self.logger.log_info("Currency created successfully")
         return self.presenter.present(output_dto)
 
@@ -93,7 +94,7 @@ class UpdateCurrencyUseCase:
 
         validator = mapper.to(UpdateCurrencyInputDtoValidator).map(input_dto)
         currency = self.repository.update(currency_id, **validator.model_dump())
-        output_dto = mapper.to(UpdateCurrencyOutputDto).map(currency)
+        output_dto = mapper.to(UpdateCurrencyOutputDto).map({"currency": currency})
         self.logger.log_info("Currency updated successfully")
         return self.presenter.present(output_dto)
 
@@ -115,7 +116,7 @@ class DetailCurrencyUseCase:
             raise EntityDoesNotExist(f"Currency id {currency_id} not found")
 
         currency = self.repository.get(currency_id)
-        output_dto = mapper.to(DetailCurrencyOutputDto).map(currency)
+        output_dto = mapper.to(DetailCurrencyOutputDto).map({"currency": currency})
         self.logger.log_info("Currency detail show successfully")
         return self.presenter.present(output_dto)
 

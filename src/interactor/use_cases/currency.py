@@ -43,8 +43,12 @@ class ListCurrencyUseCase:
     def execute(self, input_dto: ListCurrencyInputDto) -> Dict:
         validator = mapper.to(ListCurrencyInputDtoValidator).map(input_dto)
         currencies = self.repository.list(**validator.model_dump())
-        output_dto = ListCurrencyOutputDto(
-            currencies=currencies, total=self.repository.count(), count=len(currencies)
+        output_dto = mapper.to(ListCurrencyOutputDto).map(
+            {
+                "currencies": currencies,
+                "total": self.repository.count(),
+                "count": len(currencies),
+            }
         )
         self.logger.log_info("Currencies get all successfully")
         return self.presenter.present(output_dto)

@@ -3,14 +3,14 @@ from rest_framework import serializers
 
 class BaseCurrencySerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    code = serializers.CharField()
+    # code = serializers.CharField()
     name = serializers.CharField()
-    symbol = serializers.CharField()
+    # symbol = serializers.CharField()
 
 
 class ListCurrencyResponseSerializer(serializers.Serializer):
-    total = serializers.IntegerField()
-    count = serializers.IntegerField()
+    # total = serializers.IntegerField()
+    # count = serializers.IntegerField()
     currencies = BaseCurrencySerializer(many=True)
 
 

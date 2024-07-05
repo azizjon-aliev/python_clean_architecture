@@ -1,6 +1,7 @@
 from http import HTTPMethod, HTTPStatus
 from typing import Optional
 
+from automapper import mapper
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 
 from django.http import Http404
@@ -65,7 +66,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
         # logic
         use_case = container.resolve(ListCurrencyUseCase)
-        input_dto = ListCurrencyInputDto(**parameters)
+        input_dto = mapper.to(ListCurrencyInputDto).map(parameters)
         result = use_case.execute(input_dto)
 
         # response

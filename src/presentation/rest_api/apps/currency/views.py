@@ -1,19 +1,21 @@
 from http import HTTPMethod, HTTPStatus
 from typing import Optional
 
-from automapper import mapper
 from drf_spectacular.utils import OpenApiParameter, extend_schema
+from mediatr import Mediator
 
 from django.http import Http404
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+from src.application.currency.queries.get_currencies_list_query import (
+    GetCurrenciesListQuery,
+)
 from src.application.interfaces.currency_view import CurrencyViewInterface
 from src.domain.value_objects import CurrencyId
 from src.interactor.dtos.currency_dtos import (
     CreateCurrencyInputDto,
-    ListCurrencyInputDto,
     UpdateCurrencyInputDto,
 )
 from src.interactor.errors.error_classes import EntityDoesNotExist
@@ -21,7 +23,6 @@ from src.interactor.use_cases.currency import (
     CreateCurrencyUseCase,
     DeleteCurrencyUseCase,
     DetailCurrencyUseCase,
-    ListCurrencyUseCase,
     UpdateCurrencyUseCase,
 )
 from src.presentation.rest_api.apps.common.serializers import NotFoundResponseSerializer
@@ -64,14 +65,21 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
             "limit": int(request.query_params.get("limit", 100)),
         }
 
+        mediator = container.resolve(Mediator)
+        req = GetCurrenciesListQuery(**parameters)
+        result = mediator.send(req)
+        print(result)
+
         # logic
-        use_case = container.resolve(ListCurrencyUseCase)
-        input_dto = mapper.to(ListCurrencyInputDto).map(parameters)
-        result = use_case.execute(input_dto)
+        # use_case = container.resolve(ListCurrencyUseCase)
+        # input_dto = mapper.to(ListCurrencyInputDto).map(parameters)
+        # result = use_case.execute(input_dto)
 
         # response
         return Response(
-            data=ListCurrencyResponseSerializer(result).data, status=status.HTTP_200_OK
+            data=result
+            # data=ListCurrencyResponseSerializer
+            # (result).data, status=status.HTTP_200_OK
         )
 
     @extend_schema(

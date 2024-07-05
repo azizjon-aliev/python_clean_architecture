@@ -1,13 +1,15 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Optional
 
-from src.interactor.interfaces.repositories.base_repository import AbstractRepositoryInterface
+from src.application.common.contracts.repositories.base_repository import (
+    AbstractRepositoryInterface,
+)
 from src.domain.entities.account import User
-from src.domain.value_objects import CurrencyId
+from src.domain.value_objects import UserId
 
 
-class UserRepositoryInterface(AbstractRepositoryInterface[User, CurrencyId]):
+class UserRepositoryInterface(AbstractRepositoryInterface[User, UserId], ABC):
     @abstractmethod
     def create(
         self,
@@ -23,4 +25,4 @@ class UserRepositoryInterface(AbstractRepositoryInterface[User, CurrencyId]):
         created_by: Optional[str] = None,
         updated_by: Optional[str] = None,
     ) -> User:
-        pass
+        raise NotImplementedError("Method not implemented")

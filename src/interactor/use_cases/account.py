@@ -1,15 +1,15 @@
 from typing import Dict
 
+from src.application.common.contracts.logger.logger import LoggerInterface
+from src.application.common.contracts.repositories.account_repository import (
+    UserRepositoryInterface,
+)
 from src.interactor.dtos.account_dtos import (
     RegisterStep1InputDto,
     RegisterStep1OutputDto,
 )
-from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.interfaces.presenters.account_presenter import (
     RegisterStep1PresenterInterface,
-)
-from src.interactor.interfaces.repositories.account_repository import (
-    UserRepositoryInterface,
 )
 from src.interactor.validations.account_validation import RegisterStep1InputDtoValidator
 

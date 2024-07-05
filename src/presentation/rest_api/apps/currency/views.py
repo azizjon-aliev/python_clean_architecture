@@ -78,8 +78,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
         # response
         return Response(
             data=result
-            # data=ListCurrencyResponseSerializer
-            # (result).data, status=status.HTTP_200_OK
+            # data=ListCurrencyResponseSerializer(result).data, status=status.HTTP_200_OK
         )
 
     @extend_schema(

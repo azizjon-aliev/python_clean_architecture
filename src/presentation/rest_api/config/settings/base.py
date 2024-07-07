@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     # for django admin
     "src.presentation.admin_panel",
     # apps
-    "src.presentation.rest_api.apps.account",
+    "src.presentation.rest_api.apps.authentication",
     "src.presentation.rest_api.apps.currency",
 ]
 

@@ -3,13 +3,6 @@ from src.domain.entities.account import User
 from src.infrastructure.repositories.account_repository import UserRepository
 
 
-class BaseCurrencySerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    code = serializers.CharField()
-    name = serializers.CharField()
-    symbol = serializers.CharField()
-
-
 class RegisterStep1RequestSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=13)
     email = serializers.EmailField()

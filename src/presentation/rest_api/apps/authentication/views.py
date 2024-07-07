@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from src.application.interfaces.account_view import RegisterViewInterface
 from src.interactor.dtos.account_dtos import RegisterStep1InputDto
-from src.interactor.use_cases.account import RegisterStep1UseCase
+from src.interactor.use_cases.authentication import RegisterStep1UseCase
 from src.interactor.use_cases.notification import generate_otp
 from src.presentation.rest_api.apps.authentication.serializers import (
     RegisterStep1RequestSerializer,

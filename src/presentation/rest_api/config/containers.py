@@ -26,7 +26,7 @@ from src.interactor.interfaces.repositories.account_repository import (
 from src.interactor.interfaces.repositories.currency_repository import (
     CurrencyRepositoryInterface,
 )
-from src.interactor.use_cases.account import RegisterStep1UseCase
+from src.interactor.use_cases.authentication import RegisterStep1UseCase
 from src.interactor.use_cases.currency import (
     CreateCurrencyUseCase,
     DeleteCurrencyUseCase,

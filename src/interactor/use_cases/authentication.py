@@ -1,17 +1,17 @@
 from typing import Dict
 
-from src.interactor.dtos.account_dtos import (
+from src.interactor.dtos.authentication_dtos import (
     RegisterStep1InputDto,
     RegisterStep1OutputDto,
 )
 from src.interactor.interfaces.logger.logger import LoggerInterface
-from src.interactor.interfaces.presenters.account_presenter import (
+from src.interactor.interfaces.presenters.authentication_presenter import (
     RegisterStep1PresenterInterface,
 )
 from src.interactor.interfaces.repositories.account_repository import (
     UserRepositoryInterface,
 )
-from src.interactor.validations.account_validation import RegisterStep1InputDtoValidator
+from src.interactor.validations.authentication_validation import RegisterStep1InputDtoValidator
 
 
 class RegisterStep1UseCase:

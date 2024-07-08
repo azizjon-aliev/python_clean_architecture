@@ -1,7 +1,7 @@
 from typing import Dict
 
-from src.interactor.dtos.account_dtos import RegisterStep1OutputDto
-from src.interactor.interfaces.presenters.account_presenter import (
+from src.interactor.dtos.authentication_dtos import RegisterStep1OutputDto
+from src.interactor.interfaces.presenters.authentication_presenter import (
     RegisterStep1PresenterInterface,
 )
 

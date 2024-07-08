@@ -1,6 +1,6 @@
 import punq
 
-from src.application.presenters.account_presenter import RegisterStep1Presenter
+from src.application.presenters.authentication_presenter import RegisterStep1Presenter
 from src.application.presenters.currency_presenter import (
     CreateCurrencyPresenter,
     DetailCurrencyPresenter,
@@ -11,7 +11,7 @@ from src.infrastructure.loggers.logger_default import LoggerDefault
 from src.infrastructure.repositories.account_repository import UserRepository
 from src.infrastructure.repositories.currency_repository import CurrencyRepository
 from src.interactor.interfaces.logger.logger import LoggerInterface
-from src.interactor.interfaces.presenters.account_presenter import (
+from src.interactor.interfaces.presenters.authentication_presenter import (
     RegisterStep1PresenterInterface,
 )
 from src.interactor.interfaces.presenters.currency_presenter import (

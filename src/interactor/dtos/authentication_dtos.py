@@ -1,7 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
-
-from src.domain.entities.account import User
 
 
 @dataclass
@@ -12,6 +9,21 @@ class RegisterStep1InputDto:
     password: str
 
 
+
 @dataclass
-class RegisterStep1OutputDto:
-    user: User
+class LoginInputDto:
+    username: str
+    password: str
+
+
+
+@dataclass
+class TokenDto:
+    access_token: str
+    refresh_token: str
+
+
+
+@dataclass
+class RefreshTokenInputDto:
+    refresh_token: str

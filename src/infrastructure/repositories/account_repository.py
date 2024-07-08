@@ -50,7 +50,7 @@ class UserRepository(AbstractRepository[UserModel, UserId], UserRepositoryInterf
         if self.exists(username=username):
             raise EntityAlreadyExists("username already exists")
 
-        if email and self.exists(email=email):
+        if self.exists(email=email):
             raise EntityAlreadyExists("Email already exists")
 
         instance = UserModel(

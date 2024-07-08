@@ -1,3 +1,4 @@
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -125,7 +126,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.AllowAny",
+        # "rest_framework.permissions.DjangoModelPermissions",
+    ),
 }
+
 
 # SWAGGER
 SPECTACULAR_SETTINGS = {
@@ -137,4 +146,24 @@ SPECTACULAR_SETTINGS = {
         "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
     },
     "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+}
+
+
+
+# JWT
+SIMPLE_JWT = {
+    "ALGORITHM": os.environ.get("ALGORITHM", "HS256"),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.environ.get("ACCESS_TOKEN_LIFETIME", 5))
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        days=int(os.environ.get("REFRESH_TOKEN_LIFETIME", 1))
+    ),
+    "SLIDING_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.environ.get("ACCESS_TOKEN_LIFETIME", 5))
+    ),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(
+        days=int(os.environ.get("REFRESH_TOKEN_LIFETIME", 1))
+    ),
+    "UPDATE_LAST_LOGIN": True,
 }

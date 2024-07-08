@@ -4,7 +4,12 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 
-class RegisterViewInterface(ABC):
+
+class AuthViewInterface(ABC):
     @abstractmethod
     def step1(self, request: Request) -> Response:
+        pass
+
+    @abstractmethod
+    def login(self, request: Request) -> Response:
         pass

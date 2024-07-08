@@ -1,15 +1,14 @@
 from typing import Dict
 
-from src.interactor.dtos.authentication_dtos import RegisterStep1OutputDto
+from src.interactor.dtos.authentication_dtos import TokenDto
 from src.interactor.interfaces.presenters.authentication_presenter import (
-    RegisterStep1PresenterInterface,
+    LoginPresenterInterface,
 )
 
 
-class RegisterStep1Presenter(RegisterStep1PresenterInterface):
-    def present(self, output_dto: RegisterStep1OutputDto) -> Dict:
+class LoginPresenter(LoginPresenterInterface):
+    def present(self, output_dto: TokenDto) -> Dict:
         return {
-            "id": output_dto.user.user_id,
-            "username": output_dto.user.username,
-            "email": output_dto.user.email,
+            "access_token": output_dto.access_token,
+            "refresh_token": output_dto.refresh_token,
         }

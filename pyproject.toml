@@ -23,6 +23,7 @@ psycopg2-binary = "^2.9.9"
 requests = "^2.31.0"
 punq = "^0.7.0"
 py-automapper = "^1.2.3"
+djangorestframework-simplejwt = "^5.3.1"
 
 
 [tool.poetry.group.dev.dependencies]

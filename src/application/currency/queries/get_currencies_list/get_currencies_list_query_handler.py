@@ -5,7 +5,7 @@ from automapper import Mapper
 from src.application.common.contracts.repositories.currency_repository import (
     CurrencyRepositoryInterface,
 )
-from src.application.currency.queries.get_currencies_list_query import (
+from src.application.currency.queries.get_currencies_list.get_currencies_list_query import (
     GetCurrenciesListQuery,
 )
 from src.application.currency.responses.currency_vm import CurrencyVm

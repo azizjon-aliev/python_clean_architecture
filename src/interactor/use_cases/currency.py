@@ -11,8 +11,6 @@ from src.interactor.dtos.currency_dtos import (
     CreateCurrencyInputDto,
     CreateCurrencyOutputDto,
     DetailCurrencyOutputDto,
-    ListCurrencyInputDto,
-    ListCurrencyOutputDto,
     UpdateCurrencyInputDto,
     UpdateCurrencyOutputDto,
 )
@@ -20,39 +18,12 @@ from src.interactor.errors.error_classes import EntityDoesNotExist
 from src.interactor.interfaces.presenters.currency_presenter import (
     CreateCurrencyPresenterInterface,
     DetailCurrencyPresenterInterface,
-    ListCurrencyPresenterInterface,
     UpdateCurrencyPresenterInterface,
 )
 from src.interactor.validations.currency_validation import (
     CreateCurrencyInputDtoValidator,
-    ListCurrencyInputDtoValidator,
     UpdateCurrencyInputDtoValidator,
 )
-
-
-class ListCurrencyUseCase:
-    def __init__(
-        self,
-        repository: CurrencyRepositoryInterface,
-        presenter: ListCurrencyPresenterInterface,
-        logger: LoggerInterface,
-    ):
-        self.repository = repository
-        self.presenter = presenter
-        self.logger = logger
-
-    def execute(self, input_dto: ListCurrencyInputDto) -> Dict:
-        validator = mapper.to(ListCurrencyInputDtoValidator).map(input_dto)
-        currencies = self.repository.list(**validator.model_dump())
-        output_dto = mapper.to(ListCurrencyOutputDto).map(
-            {
-                "currencies": currencies,
-                "total": self.repository.count(),
-                "count": len(currencies),
-            }
-        )
-        self.logger.log_info("Currencies get all successfully")
-        return self.presenter.present(output_dto)
 
 
 class CreateCurrencyUseCase:

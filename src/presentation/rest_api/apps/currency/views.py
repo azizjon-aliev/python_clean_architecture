@@ -9,8 +9,11 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from src.application.currency.queries.get_currencies_list_query import (
+from src.application.currency.queries.get_currencies_list.get_currencies_list_query import (
     GetCurrenciesListQuery,
+)
+from src.application.currency.queries.get_currency_detail.get_currency_detail_query import (
+    GetCurrencyDetailQuery,
 )
 from src.application.interfaces.currency_view import CurrencyViewInterface
 from src.domain.value_objects import CurrencyId
@@ -22,7 +25,6 @@ from src.interactor.errors.error_classes import EntityDoesNotExist
 from src.interactor.use_cases.currency import (
     CreateCurrencyUseCase,
     DeleteCurrencyUseCase,
-    DetailCurrencyUseCase,
     UpdateCurrencyUseCase,
 )
 from src.presentation.rest_api.apps.common.serializers import NotFoundResponseSerializer
@@ -40,9 +42,12 @@ from src.presentation.rest_api.config.containers import container
 class CurrencyAPIView(ViewSet, CurrencyViewInterface):
     authentication_classes = ()
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__mediator = container.resolve(Mediator)
+
     @extend_schema(
-        responses={HTTPStatus.OK: ListCurrencyResponseSerializer},
-        methods=[HTTPMethod.POST],
+        methods=[HTTPMethod.GET],
         parameters=[
             OpenApiParameter(
                 "skip",
@@ -57,47 +62,34 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
                 description="Maximum number of items to retrieve.",
             ),
         ],
+        responses=ListCurrencyResponseSerializer,
     )
     def list(self, request: Request) -> Response:
-        # request
         parameters = {
             "skip": int(request.query_params.get("skip", 0)),
             "limit": int(request.query_params.get("limit", 100)),
         }
 
-        mediator = container.resolve(Mediator)
-        req = GetCurrenciesListQuery(**parameters)
-        result = mediator.send(req)
-        print(result)
+        query = GetCurrenciesListQuery(**parameters)
+        result = self.__mediator.send(query)
 
-        # logic
-        # use_case = container.resolve(ListCurrencyUseCase)
-        # input_dto = mapper.to(ListCurrencyInputDto).map(parameters)
-        # result = use_case.execute(input_dto)
-
-        # response
         return Response(
-            data=ListCurrencyResponseSerializer({"currencies": result}).data,
+            data=ListCurrencyResponseSerializer(result, many=True).data,
             status=status.HTTP_200_OK,
         )
 
     @extend_schema(
+        methods=[HTTPMethod.GET],
+        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
         responses={
             HTTPStatus.OK: DetailCurrencyResponseSerializer,
             HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
-        methods=[HTTPMethod.GET],
-        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def retrieve(self, request: Request, pk: Optional[CurrencyId]) -> Response:
-        # logic
-        try:
-            use_case = container.resolve(DetailCurrencyUseCase)
-            result = use_case.execute(pk)
-        except EntityDoesNotExist as e:
-            raise Http404() from e
+        query = GetCurrencyDetailQuery(id=pk)
+        result = self.__mediator.send(query)
 
-        # response
         return Response(
             data=DetailCurrencyResponseSerializer(result).data,
             status=status.HTTP_200_OK,

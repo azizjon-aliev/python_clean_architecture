@@ -11,8 +11,11 @@ from src.application.common.contracts.repositories.currency_repository import (
 )
 from src.application.common.mappings.mapper import mapper
 from src.application.common.mediator_registers import mediator_registers
-from src.application.currency.queries.get_currencies_list_query_handler import (
+from src.application.currency.queries.get_currencies_list.get_currencies_list_query_handler import (
     GetCurrenciesListQueryHandler,
+)
+from src.application.currency.queries.get_currency_detail.get_currency_detail_query_handler import (
+    GetCurrencyDetailQueryHandler,
 )
 from src.application.presenters.account_presenter import RegisterStep1Presenter
 from src.application.presenters.currency_presenter import (
@@ -38,7 +41,6 @@ from src.interactor.use_cases.currency import (
     CreateCurrencyUseCase,
     DeleteCurrencyUseCase,
     DetailCurrencyUseCase,
-    ListCurrencyUseCase,
     UpdateCurrencyUseCase,
 )
 
@@ -46,8 +48,12 @@ container = punq.Container()
 
 # common
 container.register(service=LoggerInterface, instance=LoggerDefault())
-container.register(service=Mediator, instance=mediator_registers)
 container.register(service=Mapper, instance=mapper)
+
+# mediator
+container.register(service=Mediator, instance=mediator_registers)
+container.register(GetCurrenciesListQueryHandler)
+container.register(GetCurrencyDetailQueryHandler)
 
 # account
 container.register(service=UserRepositoryInterface, instance=UserRepository())
@@ -58,7 +64,7 @@ container.register(RegisterStep1UseCase)
 
 # currency
 container.register(service=CurrencyRepositoryInterface, instance=CurrencyRepository())
-container.register(GetCurrenciesListQueryHandler)
+
 container.register(
     service=ListCurrencyPresenterInterface, instance=ListCurrencyPresenter()
 )
@@ -71,7 +77,6 @@ container.register(
 container.register(
     service=UpdateCurrencyPresenterInterface, instance=UpdateCurrencyPresenter()
 )
-container.register(ListCurrencyUseCase)
 container.register(DetailCurrencyUseCase)
 container.register(CreateCurrencyUseCase)
 container.register(UpdateCurrencyUseCase)

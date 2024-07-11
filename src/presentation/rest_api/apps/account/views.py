@@ -1,3 +1,4 @@
+import random
 from http import HTTPMethod, HTTPStatus
 
 from automapper import mapper
@@ -7,10 +8,8 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from src.application.interfaces.account_view import RegisterViewInterface
 from src.interactor.dtos.account_dtos import RegisterStep1InputDto
 from src.interactor.use_cases.account import RegisterStep1UseCase
-from src.interactor.use_cases.notification import generate_otp
 from src.presentation.rest_api.apps.account.serializers import (
     RegisterStep1RequestSerializer,
     RegisterStep1ResponseSerializer,
@@ -18,7 +17,7 @@ from src.presentation.rest_api.apps.account.serializers import (
 from src.presentation.rest_api.config.containers import container
 
 
-class RegisterAPIView(ViewSet, RegisterViewInterface):
+class RegisterAPIView(ViewSet):
     authentication_classes = ()
 
     @extend_schema(
@@ -30,7 +29,7 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
         # request
         serializer = RegisterStep1RequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        otp = generate_otp()
+        otp = random.randint(1000, 9999)
 
         # logic
         input_dto = mapper.to(RegisterStep1InputDto).map(

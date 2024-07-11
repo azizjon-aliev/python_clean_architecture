@@ -24,7 +24,6 @@ from src.application.currency.queries.get_currencies_list.get_currencies_list_qu
 from src.application.currency.queries.get_currency_detail.get_currency_detail_query import (
     GetCurrencyDetailQuery,
 )
-from src.application.interfaces.currency_view import CurrencyViewInterface
 from src.domain.value_objects import CurrencyId
 from src.presentation.rest_api.apps.common.serializers import NotFoundResponseSerializer
 from src.presentation.rest_api.apps.currency.serializers import (
@@ -36,7 +35,7 @@ from src.presentation.rest_api.apps.currency.serializers import (
 from src.presentation.rest_api.config.containers import container
 
 
-class CurrencyAPIView(ViewSet, CurrencyViewInterface):
+class CurrencyAPIView(ViewSet):
     authentication_classes = ()
 
     def __init__(self, *args, **kwargs):

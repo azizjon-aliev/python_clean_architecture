@@ -1,14 +1,23 @@
 from http import HTTPMethod, HTTPStatus
 from typing import Optional
 
+from automapper import Mapper
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from mediatr import Mediator
 
-from django.http import Http404
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+from src.application.currency.commands.add_currency.add_currency_command import (
+    AddCurrencyCommand,
+)
+from src.application.currency.commands.edit_currency.edit_currency_command import (
+    EditCurrencyCommand,
+)
+from src.application.currency.commands.remove_currency.remove_currency_command import (
+    RemoveCurrencyCommand,
+)
 from src.application.currency.queries.get_currencies_list.get_currencies_list_query import (
     GetCurrenciesListQuery,
 )
@@ -17,24 +26,12 @@ from src.application.currency.queries.get_currency_detail.get_currency_detail_qu
 )
 from src.application.interfaces.currency_view import CurrencyViewInterface
 from src.domain.value_objects import CurrencyId
-from src.interactor.dtos.currency_dtos import (
-    CreateCurrencyInputDto,
-    UpdateCurrencyInputDto,
-)
-from src.interactor.errors.error_classes import EntityDoesNotExist
-from src.interactor.use_cases.currency import (
-    CreateCurrencyUseCase,
-    DeleteCurrencyUseCase,
-    UpdateCurrencyUseCase,
-)
 from src.presentation.rest_api.apps.common.serializers import NotFoundResponseSerializer
 from src.presentation.rest_api.apps.currency.serializers import (
     CreateCurrencyRequestSerializer,
-    CreateCurrencyResponseSerializer,
     DetailCurrencyResponseSerializer,
     ListCurrencyResponseSerializer,
     UpdateCurrencyRequestSerializer,
-    UpdateCurrencyResponseSerializer,
 )
 from src.presentation.rest_api.config.containers import container
 
@@ -45,6 +42,7 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__mediator = container.resolve(Mediator)
+        self.__mapper = container.resolve(Mapper)
 
     @extend_schema(
         methods=[HTTPMethod.GET],
@@ -97,67 +95,47 @@ class CurrencyAPIView(ViewSet, CurrencyViewInterface):
 
     @extend_schema(
         request=CreateCurrencyRequestSerializer,
-        responses={HTTPStatus.CREATED: CreateCurrencyResponseSerializer},
+        responses={HTTPStatus.CREATED: DetailCurrencyResponseSerializer},
         methods=[HTTPMethod.POST],
     )
     def create(self, request: Request) -> Response:
-        # request
-        serializer = CreateCurrencyRequestSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        command = self.__mapper.to(AddCurrencyCommand).map(request.data)
+        result = self.__mediator.send(command)
 
-        # logic
-        use_case = container.resolve(CreateCurrencyUseCase)
-        input_dto = CreateCurrencyInputDto(**serializer.data)
-        result = use_case.execute(input_dto)
-
-        # response
         return Response(
-            data=CreateCurrencyResponseSerializer(result).data,
+            data=DetailCurrencyResponseSerializer(result).data,
             status=status.HTTP_201_CREATED,
         )
 
     @extend_schema(
         request=UpdateCurrencyRequestSerializer,
         responses={
-            HTTPStatus.OK: UpdateCurrencyResponseSerializer,
+            HTTPStatus.OK: DetailCurrencyResponseSerializer,
             HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
         methods=[HTTPMethod.PATCH],
         parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def partial_update(self, request: Request, pk: Optional[CurrencyId]) -> Response:
-        # request
-        serializer = UpdateCurrencyRequestSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        command = self.__mapper.to(EditCurrencyCommand).map(
+            request.data, fields_mapping={"id": pk}
+        )
+        result = self.__mediator.send(command)
 
-        # logic
-        try:
-            use_case = container.resolve(UpdateCurrencyUseCase)
-            input_dto = UpdateCurrencyInputDto(**serializer.data)
-            result = use_case.execute(pk, input_dto)
-        except EntityDoesNotExist as e:
-            raise Http404() from e
-
-        # response
         return Response(
-            data=UpdateCurrencyResponseSerializer(result).data,
+            data=DetailCurrencyResponseSerializer(result).data,
             status=status.HTTP_200_OK,
         )
 
     @extend_schema(
+        methods=[HTTPMethod.DELETE],
+        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
         responses={
             HTTPStatus.NO_CONTENT: None,
             HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
-        methods=[HTTPMethod.DELETE],
-        parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
     def destroy(self, request: Request, pk: Optional[CurrencyId]) -> Response:
-        # logic
-        try:
-            use_case = container.resolve(DeleteCurrencyUseCase)
-            use_case.execute(pk)
-        except EntityDoesNotExist as e:
-            raise Http404() from e
-
-        return Response(data=None, status=status.HTTP_204_NO_CONTENT)
+        command = RemoveCurrencyCommand(id=pk)
+        result = self.__mediator.send(command)
+        return Response(data=result, status=status.HTTP_204_NO_CONTENT)

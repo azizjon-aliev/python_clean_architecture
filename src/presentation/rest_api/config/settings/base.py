@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     # for django admin
     "src.presentation.admin_panel",
     # apps
-    "src.presentation.rest_api.apps.account",
     "src.presentation.rest_api.apps.currency",
 ]
 
@@ -89,8 +88,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "infrastructure.User"
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation."
@@ -129,7 +126,7 @@ REST_FRAMEWORK = {
 
 # SWAGGER
 SPECTACULAR_SETTINGS = {
-    "TITLE": "E-commerce API Documentation",
+    "TITLE": "Python clean architecture API Documentation",
     "DESCRIPTION": "Description api",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,

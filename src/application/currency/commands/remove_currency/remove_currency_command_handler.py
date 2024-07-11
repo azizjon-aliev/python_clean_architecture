@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 from automapper import Mapper
@@ -9,6 +10,8 @@ from src.application.currency.commands.remove_currency.remove_currency_command i
     RemoveCurrencyCommand,
 )
 
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class RemoveCurrencyCommandHandler:
@@ -16,4 +19,6 @@ class RemoveCurrencyCommandHandler:
     mapper: Mapper
 
     def handle(self, request: RemoveCurrencyCommand):
+        logger.info("Handler RemoveCurrencyCommand...")
         self.repository.delete(object_id=request.id)
+        logger.info("Success RemoveCurrencyCommand handler.")

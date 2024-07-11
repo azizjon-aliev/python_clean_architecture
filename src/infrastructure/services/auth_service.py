@@ -2,11 +2,12 @@ from typing import Optional
 from django.contrib.auth import authenticate
 
 from src.domain.entities.account import User
-from src.interactor.interfaces.repositories.authentication_repository import AuthRepositoryInterface
 from src.infrastructure.repositories.account_repository import UserRepository
+from src.interactor.interfaces.services.auth_service import AuthServiceInterface
 
 
-class AuthRepository(AuthRepositoryInterface):
+class AuthService(AuthServiceInterface):
+
     def authenticate(self, username: str, password: str) -> Optional[User]:
         user = authenticate(username=username, password=password)
         if user is not None:

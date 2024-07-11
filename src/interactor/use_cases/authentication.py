@@ -13,9 +13,6 @@ from src.interactor.interfaces.presenters.authentication_presenter import (
 from src.interactor.interfaces.repositories.account_repository import (
     UserRepositoryInterface,
 )
-from src.interactor.interfaces.repositories.authentication_repository import (
-    AuthRepositoryInterface,
-)
 from src.interactor.validations.authentication_validation import RegisterStep1InputDtoValidator
 from src.interactor.interfaces.providers.token_provider import TokenProviderInterface
 from src.interactor.errors.error_classes import InvalidCredentials
@@ -60,7 +57,7 @@ class RegisterStep1UseCase:
 class LoginUseCase:
     def __init__(
         self,
-        repository: AuthRepositoryInterface,
+        repository: UserRepositoryInterface,
         provider: TokenProviderInterface,
         presenter: LoginPresenterInterface,
         logger: LoggerInterface,

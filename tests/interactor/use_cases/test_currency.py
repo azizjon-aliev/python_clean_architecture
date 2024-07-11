@@ -1,4 +1,5 @@
 import pytest
+from src.application.common.contracts.logger.logger import LoggerInterface
 from src.application.presenters.currency_presenter import (
     CreateCurrencyPresenter,
     ListCurrencyPresenter,
@@ -11,7 +12,6 @@ from src.interactor.dtos.currency_dtos import (
     ListCurrencyInputDto,
     UpdateCurrencyInputDto,
 )
-from src.interactor.interfaces.logger.logger import LoggerInterface
 from src.interactor.use_cases.currency import (
     CreateCurrencyUseCase,
     DeleteCurrencyUseCase,

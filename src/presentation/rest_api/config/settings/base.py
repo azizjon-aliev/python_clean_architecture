@@ -1,4 +1,3 @@
-from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
     # for django admin
     "src.presentation.admin_panel",
     # apps
-    "src.presentation.rest_api.apps.authentication",
     "src.presentation.rest_api.apps.currency",
 ]
 
@@ -90,8 +88,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "infrastructure.User"
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation."
@@ -126,19 +122,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.AllowAny",
-        # "rest_framework.permissions.DjangoModelPermissions",
-    ),
 }
-
 
 # SWAGGER
 SPECTACULAR_SETTINGS = {
-    "TITLE": "E-commerce API Documentation",
+    "TITLE": "Python clean architecture API Documentation",
     "DESCRIPTION": "Description api",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
@@ -146,24 +134,4 @@ SPECTACULAR_SETTINGS = {
         "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
     },
     "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
-}
-
-
-
-# JWT
-SIMPLE_JWT = {
-    "ALGORITHM": os.environ.get("ALGORITHM", "HS256"),
-    "ACCESS_TOKEN_LIFETIME": timedelta(
-        minutes=int(os.environ.get("ACCESS_TOKEN_LIFETIME", 5))
-    ),
-    "REFRESH_TOKEN_LIFETIME": timedelta(
-        days=int(os.environ.get("REFRESH_TOKEN_LIFETIME", 1))
-    ),
-    "SLIDING_TOKEN_LIFETIME": timedelta(
-        minutes=int(os.environ.get("ACCESS_TOKEN_LIFETIME", 5))
-    ),
-    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(
-        days=int(os.environ.get("REFRESH_TOKEN_LIFETIME", 1))
-    ),
-    "UPDATE_LAST_LOGIN": True,
 }

@@ -19,7 +19,6 @@ def test_list_currency_api_view() -> None:
     }
     response = client.get(path=reverse("currency-list"), data=params, format="json")
 
-    print(response.data)
     assert response.status_code == status.HTTP_200_OK
     assert len(response.data) == params.get("limit")
 

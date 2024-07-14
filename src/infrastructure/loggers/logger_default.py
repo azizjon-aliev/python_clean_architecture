@@ -1,6 +1,6 @@
 import logging
 
-from src.interactor.interfaces.logger.logger import LoggerInterface
+from src.application.common.contracts.logger.logger import LoggerInterface
 
 
 class LoggerDefault(LoggerInterface):

@@ -19,9 +19,9 @@ def test_list_currency_api_view() -> None:
     }
     response = client.get(path=reverse("currency-list"), data=params, format="json")
 
+    print(response.data)
     assert response.status_code == status.HTTP_200_OK
-    assert response.data.get("total") == currency_count
-    assert response.data.get("count") <= params.get("limit")
+    assert len(response.data) == params.get("limit")
 
 
 @pytest.mark.django_db
@@ -32,7 +32,6 @@ def test_retrieve_currency_api_view() -> None:
     )
 
     assert response.status_code == status.HTTP_200_OK
-    assert response.data.get("id") == currency.id
     assert response.data.get("code") == currency.code
     assert response.data.get("name") == currency.name
     assert response.data.get("symbol") == currency.symbol

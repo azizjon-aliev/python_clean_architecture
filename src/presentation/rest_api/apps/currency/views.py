@@ -62,6 +62,7 @@ class CurrencyAPIView(ViewSet):
         responses=ListCurrencyResponseSerializer,
     )
     def list(self, request: Request) -> Response:
+        print(request.user)
         parameters = {
             "skip": int(request.query_params.get("skip", 0)),
             "limit": int(request.query_params.get("limit", 100)),

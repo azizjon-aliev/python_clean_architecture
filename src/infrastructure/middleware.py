@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 import logging
+from http import HTTPStatus
 
 from src.application.common.exceptions.authentication_exceptions import EntityInvalidCredentialsException
 from src.application.common.exceptions.entity_already_exist_exception import EntityAlreadyExistException
@@ -17,13 +18,13 @@ class ExceptionHandlingMiddleware:
     def process_exception(self, request, exception):
         logger.error(f'Exception occurred: {exception}', exc_info=True)
 
-        status_code = 400
+        status_code = HTTPStatus.BAD_REQUEST
 
         if isinstance(exception, EntityInvalidCredentialsException):
-            status_code = 401
+            status_code = HTTPStatus.UNAUTHORIZED
 
         if isinstance(exception, EntityAlreadyExistException):
-            status_code = 409
+            status_code = HTTPStatus.CONFLICT
 
         response_data = {
             "error": str(exception),

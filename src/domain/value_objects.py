@@ -1,1 +1,2 @@
 CurrencyId = int
+UserId = int

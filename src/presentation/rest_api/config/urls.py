@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from src.presentation.rest_api.apps.currency.urls import urlpatterns as currency_urls
+from src.presentation.rest_api.apps.authentication.urls import urlpatterns as authentication_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -16,6 +17,7 @@ urlpatterns = [
     path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path("api/v1/currency/", include(currency_urls)),
+    path("api/v1/authentication/", include(authentication_urls)),
 ]
 
 if settings.DEBUG:

@@ -19,7 +19,7 @@ class EditCurrencyCommandHandler:
     repository: CurrencyRepositoryInterface
     mapper: Mapper
 
-    def handle(self, request: EditCurrencyCommand):
+    def handle(self, request: EditCurrencyCommand) -> CurrencyDetailVm:
         logger.info("Handler EditCurrencyCommand...")
 
         data = {

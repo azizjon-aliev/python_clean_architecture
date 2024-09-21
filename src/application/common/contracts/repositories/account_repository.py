@@ -1,15 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import Optional
-from src.domain.entities.account import User
-from src.domain.value_objects import UserId
+
 from src.application.common.contracts.repositories.base_repository import (
     AbstractRepositoryInterface,
 )
+from src.domain.entities.account import User
+from src.domain.value_objects import UserId
 
 
-class UserRepositoryInterface(
-    AbstractRepositoryInterface[User, UserId], ABC
-):
+class UserRepositoryInterface(AbstractRepositoryInterface[User, UserId], ABC):
     @abstractmethod
     def create(
         self,

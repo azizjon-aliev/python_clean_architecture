@@ -8,17 +8,22 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from src.application.authentication.commands.register_user.register_user_command import RegisterUserCommand
-from src.application.authentication.queries.login_user.login_user_query import LoginUserQuery
-from src.application.authentication.queries.refresh_token.refresh_token_query import RefreshTokenQuery
-from src.presentation.rest_api.config.containers import container
+from src.application.authentication.commands.register_user.register_user_command import (
+    RegisterUserCommand,
+)
+from src.application.authentication.queries.login_user.login_user_query import (
+    LoginUserQuery,
+)
+from src.application.authentication.queries.refresh_token.refresh_token_query import (
+    RefreshTokenQuery,
+)
 from src.presentation.rest_api.apps.authentication.serializers import (
     LoginRequestSerializer,
     RefreshTokenRequestSerializer,
     RegisterRequestSerializer,
     TokenResponseSerializer,
 )
-
+from src.presentation.rest_api.config.containers import container
 
 
 class AuthAPIView(ViewSet):
@@ -43,7 +48,6 @@ class AuthAPIView(ViewSet):
             status=status.HTTP_201_CREATED,
         )
 
-
     @extend_schema(
         request=LoginRequestSerializer,
         responses={HTTPStatus.OK: TokenResponseSerializer},
@@ -57,7 +61,6 @@ class AuthAPIView(ViewSet):
             data=TokenResponseSerializer(result).data,
             status=status.HTTP_201_CREATED,
         )
-
 
     @extend_schema(
         request=RefreshTokenRequestSerializer,

@@ -3,14 +3,15 @@ from dataclasses import dataclass
 
 from automapper import Mapper
 
-from src.application.common.exceptions.entity_already_exist_exception import EntityAlreadyExistException
-from src.application.common.exceptions.entity_incorrect_format_exception import EntityIncorrectFormatException
-from src.domain.entities.account import User
-from src.application.authentication.responses.token_vm import TokenVm
-from src.application.authentication.validations.authentication_validation import RegisterInputDtoValidator
-from src.application.common.contracts.providers.token_provider import TokenProviderInterface
 from src.application.authentication.commands.register_user.register_user_command import (
     RegisterUserCommand,
+)
+from src.application.authentication.responses.token_vm import TokenVm
+from src.application.authentication.validations.authentication_validation import (
+    RegisterInputDtoValidator,
+)
+from src.application.common.contracts.providers.token_provider import (
+    TokenProviderInterface,
 )
 from src.application.common.contracts.repositories.account_repository import (
     UserRepositoryInterface,
@@ -18,6 +19,13 @@ from src.application.common.contracts.repositories.account_repository import (
 from src.application.common.exceptions.authentication_exceptions import (
     EntityDontMatchPasswordException,
 )
+from src.application.common.exceptions.entity_already_exist_exception import (
+    EntityAlreadyExistException,
+)
+from src.application.common.exceptions.entity_incorrect_format_exception import (
+    EntityIncorrectFormatException,
+)
+from src.domain.entities.account import User
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +36,7 @@ class RegisterUserCommandHandler:
     provider: TokenProviderInterface
     mapper: Mapper
 
-    def handle(self, request: RegisterUserCommand):
+    def handle(self, request: RegisterUserCommand) -> TokenVm:
         logger.info("Handling RegisterUserCommand...")
 
         logger.info("User validation...")

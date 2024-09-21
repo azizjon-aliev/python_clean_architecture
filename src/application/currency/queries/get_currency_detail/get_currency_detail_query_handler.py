@@ -19,7 +19,7 @@ class GetCurrencyDetailQueryHandler:
     repository: CurrencyRepositoryInterface
     mapper: Mapper
 
-    def handle(self, request: GetCurrencyDetailQuery):
+    def handle(self, request: GetCurrencyDetailQuery) -> CurrencyDetailVm:
         logger.info("Handling GetCurrencyDetailQuery...")
 
         db_response = self.repository.get(object_id=request.id)

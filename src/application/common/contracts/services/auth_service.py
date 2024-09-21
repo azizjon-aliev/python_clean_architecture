@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Optional
+
 from src.domain.entities.account import User
+
 
 class AuthServiceInterface(ABC):
     @abstractmethod

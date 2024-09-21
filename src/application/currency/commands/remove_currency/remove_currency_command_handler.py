@@ -18,7 +18,7 @@ class RemoveCurrencyCommandHandler:
     repository: CurrencyRepositoryInterface
     mapper: Mapper
 
-    def handle(self, request: RemoveCurrencyCommand):
+    def handle(self, request: RemoveCurrencyCommand) -> None:
         logger.info("Handler RemoveCurrencyCommand...")
         self.repository.delete(object_id=request.id)
         logger.info("Success RemoveCurrencyCommand handler.")

@@ -12,7 +12,9 @@ from src.application.authentication.queries.refresh_token.refresh_token_query_ha
     RefreshTokenQueryHandler,
 )
 from src.application.common.contracts.logger.logger import LoggerInterface
-from src.application.common.contracts.providers.token_provider import TokenProviderInterface
+from src.application.common.contracts.providers.token_provider import (
+    TokenProviderInterface,
+)
 from src.application.common.contracts.repositories.account_repository import (
     UserRepositoryInterface,
 )

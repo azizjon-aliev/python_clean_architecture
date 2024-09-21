@@ -8,8 +8,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from src.presentation.rest_api.apps.authentication.urls import (
+    urlpatterns as authentication_urls,
+)
 from src.presentation.rest_api.apps.currency.urls import urlpatterns as currency_urls
-from src.presentation.rest_api.apps.authentication.urls import urlpatterns as authentication_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),

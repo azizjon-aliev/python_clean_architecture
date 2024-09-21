@@ -115,7 +115,7 @@ class CurrencyAPIView(ViewSet):
         methods=[HTTPMethod.PATCH],
         parameters=[OpenApiParameter("id", CurrencyId, OpenApiParameter.PATH)],
     )
-    def partial_update(self, request: Request, pk: Optional[CurrencyId]) -> Response:
+    def partial_update(self, request: Request, pk: CurrencyId) -> Response:
         command = self.__mapper.to(EditCurrencyCommand).map(
             request.data, fields_mapping={"id": pk}
         )
@@ -134,7 +134,7 @@ class CurrencyAPIView(ViewSet):
             HTTPStatus.NOT_FOUND: NotFoundResponseSerializer,
         },
     )
-    def destroy(self, request: Request, pk: Optional[CurrencyId]) -> Response:
+    def destroy(self, request: Request, pk: CurrencyId) -> Response:
         command = RemoveCurrencyCommand(id=pk)
         result = self.__mediator.send(command)
         return Response(data=result, status=status.HTTP_204_NO_CONTENT)

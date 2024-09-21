@@ -3,7 +3,7 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
-from tests.infrastucture.factories.currency_factory import CurrencyFactory
+from tests.infrastructure.factories.currency_factory import CurrencyFactory
 
 client = APIClient()
 

@@ -1,21 +1,18 @@
-from datetime import datetime
 from typing import Optional
 
-from src.domain.entities.account import User
-from src.domain.value_objects import UserId
-from src.infrastructure.models import User as UserModel
-from src.infrastructure.repositories.base_repository import AbstractRepository
 from src.application.common.contracts.repositories.account_repository import (
     UserRepositoryInterface,
 )
 from src.application.common.exceptions.entity_already_exist_exception import (
-    EntityAlreadyExistException
+    EntityAlreadyExistException,
 )
+from src.domain.entities.account import User
+from src.domain.value_objects import UserId
+from src.infrastructure.models import User as UserModel
+from src.infrastructure.repositories.base_repository import AbstractRepository
 
 
-class UserRepository(
-    AbstractRepository[UserModel, UserId], UserRepositoryInterface
-):
+class UserRepository(AbstractRepository[UserModel, UserId], UserRepositoryInterface):
     model = UserModel
 
     def _decode_model(self, instance: UserModel) -> User:

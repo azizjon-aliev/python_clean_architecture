@@ -1,9 +1,10 @@
 from typing import Optional
-from django.contrib.auth import authenticate
 
+from src.application.common.contracts.services.auth_service import AuthServiceInterface
 from src.domain.entities.account import User
 from src.infrastructure.repositories.account_repository import UserRepository
-from src.application.common.contracts.services.auth_service import AuthServiceInterface
+
+from django.contrib.auth import authenticate
 
 
 class AuthService(AuthServiceInterface):

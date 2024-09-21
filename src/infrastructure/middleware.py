@@ -1,11 +1,16 @@
-from django.http import JsonResponse
 import logging
 from http import HTTPStatus
 
-from src.application.common.exceptions.authentication_exceptions import EntityInvalidCredentialsException
-from src.application.common.exceptions.entity_already_exist_exception import EntityAlreadyExistException
+from django.http import JsonResponse
+from src.application.common.exceptions.authentication_exceptions import (
+    EntityInvalidCredentialsException,
+)
+from src.application.common.exceptions.entity_already_exist_exception import (
+    EntityAlreadyExistException,
+)
 
 logger = logging.getLogger(__name__)
+
 
 class ExceptionHandlingMiddleware:
     def __init__(self, get_response):
@@ -15,8 +20,8 @@ class ExceptionHandlingMiddleware:
         response = self.get_response(request)
         return response
 
-    def process_exception(self, request, exception):
-        logger.error(f'Exception occurred: {exception}', exc_info=True)
+    def process_exception(self, request, exception) -> JsonResponse:
+        logger.error(f"Exception occurred: {exception}", exc_info=True)
 
         status_code = HTTPStatus.BAD_REQUEST
 

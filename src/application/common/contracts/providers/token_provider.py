@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+
 from src.domain.entities.account import User
+
 
 class TokenProviderInterface(ABC):
     @abstractmethod

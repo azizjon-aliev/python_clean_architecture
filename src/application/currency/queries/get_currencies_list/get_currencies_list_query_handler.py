@@ -19,7 +19,7 @@ class GetCurrenciesListQueryHandler:
     repository: CurrencyRepositoryInterface
     mapper: Mapper
 
-    def handle(self, request: GetCurrenciesListQuery):
+    def handle(self, request: GetCurrenciesListQuery) -> list[CurrencyVm]:
         logger.info("handling GetCurrenciesListQuery...")
         db_response = self.repository.list(skip=request.skip, limit=request.limit)
 

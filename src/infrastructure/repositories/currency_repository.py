@@ -13,11 +13,9 @@ class CurrencyRepository(
     model = CurrencyModel
 
     def _decode_model(self, instance: CurrencyModel) -> Currency:
-        return instance
-
-    # return Currency(
-    # 	currency_id=instance.pk,
-    # 	code=instance.code,
-    # 	name=instance.name,
-    # 	symbol=instance.symbol,
-    # )
+        return Currency(
+            currency_id=instance.pk,
+            code=instance.code,
+            name=instance.name,
+            symbol=instance.symbol,
+        )

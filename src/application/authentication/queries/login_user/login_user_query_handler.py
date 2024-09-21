@@ -3,15 +3,19 @@ from dataclasses import dataclass
 
 from automapper import Mapper
 
+from src.application.authentication.queries.login_user.login_user_query import (
+    LoginUserQuery,
+)
 from src.application.authentication.responses.token_vm import TokenVm
-from src.application.common.contracts.providers.token_provider import TokenProviderInterface
-from src.application.common.contracts.services.auth_service import AuthServiceInterface
-from src.application.common.exceptions.authentication_exceptions import EntityInvalidCredentialsException
+from src.application.common.contracts.providers.token_provider import (
+    TokenProviderInterface,
+)
 from src.application.common.contracts.repositories.account_repository import (
     UserRepositoryInterface,
 )
-from src.application.authentication.queries.login_user.login_user_query import (
-    LoginUserQuery,
+from src.application.common.contracts.services.auth_service import AuthServiceInterface
+from src.application.common.exceptions.authentication_exceptions import (
+    EntityInvalidCredentialsException,
 )
 
 logger = logging.getLogger(__name__)
@@ -24,7 +28,7 @@ class LoginUserQueryHandler:
     provider: TokenProviderInterface
     mapper: Mapper
 
-    def handle(self, request: LoginUserQuery):
+    def handle(self, request: LoginUserQuery) -> TokenVm:
         logger.info("Handling LoginUserQuery...")
 
         user = self.service.authenticate(request.username, request.password)

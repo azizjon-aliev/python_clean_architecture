@@ -17,7 +17,7 @@ class UserRepository(AbstractRepository[UserModel, UserId], UserRepositoryInterf
 
     def _decode_model(self, instance: UserModel) -> User:
         return User(
-            user_id=instance.pk,
+            id=instance.pk,
             username=instance.username,
             email=instance.email,
             password=instance.password,

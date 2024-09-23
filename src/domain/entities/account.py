@@ -8,7 +8,7 @@ from src.domain.value_objects import UserId
 
 @dataclass
 class User:
-    user_id: UserId
+    id: UserId
     email: str
     username: str
     password: str

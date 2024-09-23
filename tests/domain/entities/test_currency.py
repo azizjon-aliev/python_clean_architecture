@@ -1,12 +1,12 @@
 from src.domain.entities.currency import Currency
 
-data = {"currency_id": 1, "code": "USD", "name": "US Dollar", "symbol": "$"}
+data = {"id": 1, "code": "USD", "name": "US Dollar", "symbol": "$"}
 
 
 def test_currency_creation():
     currency = Currency(**data)
 
-    assert currency.currency_id == data.get("currency_id")
+    assert currency.id == data.get("id")
     assert currency.code == data.get("code")
     assert currency.name == data.get("name")
     assert currency.symbol == data.get("symbol")
@@ -15,7 +15,7 @@ def test_currency_creation():
 def test_currency_from_dict():
     currency = Currency.from_dict(data=data)
 
-    assert currency.currency_id == data.get("currency_id")
+    assert currency.id == data.get("id")
     assert currency.code == data.get("code")
     assert currency.name == data.get("name")
     assert currency.symbol == data.get("symbol")

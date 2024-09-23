@@ -11,7 +11,6 @@ from src.infrastructure.models import User as UserModel
 
 
 class TokenProvider(TokenProviderInterface):
-
     def get_token_output(self, refresh: RefreshToken) -> dict:
         return {
             "access_token": str(refresh.access_token),
@@ -19,7 +18,7 @@ class TokenProvider(TokenProviderInterface):
         }
 
     def get_token(self, user: User) -> dict:
-        user_object = UserModel.objects.get(id=user.user_id)
+        user_object = UserModel.objects.get(id=user.id)
         refresh = RefreshToken.for_user(user_object)
         output = self.get_token_output(refresh)
         return output

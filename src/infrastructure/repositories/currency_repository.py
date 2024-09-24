@@ -14,7 +14,7 @@ class CurrencyRepository(
 
     def _decode_model(self, instance: CurrencyModel) -> Currency:
         return Currency(
-            currency_id=instance.pk,
+            id=instance.pk,
             code=instance.code,
             name=instance.name,
             symbol=instance.symbol,

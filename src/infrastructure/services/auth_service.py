@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate
 
 
 class AuthService(AuthServiceInterface):
-
     def authenticate(self, username: str, password: str) -> Optional[User]:
         user = authenticate(username=username, password=password)
         if user is not None:

@@ -1,4 +1,4 @@
-# Python Inspiration Clean Architecture Project Pattern ()
+# Python Inspiration Clean Architecture Project Pattern
 
 ## 🔍 What Is It?
 This template serves as your trustworthy compass in the realm of Python development. It's built upon the principles of Clean Architecture, which empower you to create code that's readable, maintainable, and scalable.
@@ -21,13 +21,13 @@ Use this template to craft Python applications that are easy to maintain, extend
 
 ## Quick Start
 
-**NOTE**: The project uses Python 3.11, so need it installed first. It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) for installation.
+**NOTE**: The project uses Python 3.12, so need it installed first. It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) for installation.
 
 **NOTE**: Root of the django project is at the `src` folder
 
 Here is a short instruction on how to quickly set up the project for development:
 
-1. Install [`poetry`](https://python-poetry.org/)
+1. Install [`uv`](https://docs.astral.sh/uv/getting-started/installation/)
 2. Clone
 ```bash
 $ git clone https://github.com/azizjon-aliev/python_clean_architecture.git
@@ -35,8 +35,7 @@ $ git clone https://github.com/azizjon-aliev/python_clean_architecture.git
 
 3. Install requirements:
 ```bash
-$ poetry install
-$ poetry shell
+$ uv sync
 ```
 
 4. Install pre-commit hooks: `$ pre-commit install`

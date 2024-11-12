@@ -1,9 +1,9 @@
 from drf_spectacular.utils import extend_schema
-
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+
 from src.application.interfaces.account_view import RegisterViewInterface
 from src.application.presenters.account_presenter import RegisterStep1Presenter
 from src.application.serializers.account import (
@@ -14,7 +14,7 @@ from src.infrastructure.loggers.logger_default import LoggerDefault
 from src.infrastructure.repotisories.account_repository import UserRepository
 from src.interactor.dtos.account_dtos import RegisterStep1InputDto
 from src.interactor.use_cases.account import RegisterStep1UseCase
-from src.interactor.use_cases.notification import send_sms_notification, generate_otp
+from src.interactor.use_cases.notification import generate_otp, send_sms_notification
 
 
 class RegisterAPIView(ViewSet, RegisterViewInterface):
@@ -49,7 +49,11 @@ class RegisterAPIView(ViewSet, RegisterViewInterface):
             logger=self.logger,
         )
         result = use_case.execute(input_dto)
-        print(send_sms_notification(phone=input_dto.phone, message=f"Ваш код подтверждения - {otp}"))
+        print(
+            send_sms_notification(
+                phone=input_dto.phone, message=f"Ваш код подтверждения - {otp}"
+            )
+        )
         self.logger.log_info("Send sms notification with otp success")
 
         # response

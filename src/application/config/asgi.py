@@ -9,9 +9,8 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
 
 import os
 
-from dotenv import load_dotenv
-
 from django.core.asgi import get_asgi_application
+from dotenv import load_dotenv
 
 load_dotenv()
 settings_module = f"src.application.config.settings.{os.getenv('DJANGO_ENV')}"

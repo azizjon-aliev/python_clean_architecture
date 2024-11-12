@@ -1,9 +1,9 @@
 import os
 from typing import Optional
 
+import django
 from dotenv import load_dotenv
 
-import django
 from src.domain.entities.account import User
 from src.interactor.errors.error_classes import EntityAlreadyExists
 from src.interactor.interfaces.repotisories.account_repository import (
@@ -42,19 +42,19 @@ class UserRepository(UserRepositoryInterface):
         )
 
     def create(
-            self,
-            phone: str,
-            email: Optional[str],
-            password: str,
-            role: str,
-            is_staff: Optional[bool] = False,
-            is_active: Optional[bool] = False,
-            is_superuser: Optional[bool] = False,
-            otp: Optional[int] = 0,
-            is_verified: Optional[bool] = False,
-            company: Optional[str] = None,
-            created_by: Optional[str] = None,
-            updated_by: Optional[str] = None,
+        self,
+        phone: str,
+        email: Optional[str],
+        password: str,
+        role: str,
+        is_staff: Optional[bool] = False,
+        is_active: Optional[bool] = False,
+        is_superuser: Optional[bool] = False,
+        otp: Optional[int] = 0,
+        is_verified: Optional[bool] = False,
+        company: Optional[str] = None,
+        created_by: Optional[str] = None,
+        updated_by: Optional[str] = None,
     ) -> User:
         if self.exists(phone=phone):
             raise EntityAlreadyExists("Phone already exists")

@@ -35,9 +35,7 @@ $ git clone https://github.com/azizjon-aliev/python_clean_architecture.git
 
 3. Install requirements:
 ```bash
-$ uv venv
-$ source .venv/bin/activate
-$ uv pip install -r pyproject.toml
+$ uv sync
 ```
 
 4. Install pre-commit hooks: `$ pre-commit install`

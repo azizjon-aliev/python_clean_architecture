@@ -1,12 +1,12 @@
 from typing import Optional
 
-from drf_spectacular.utils import OpenApiParameter, extend_schema
-
 from django.http import Http404
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+
 from src.application.interfaces.currency_view import CurrencyViewInterface
 from src.application.presenters.currency_presenter import (
     CreateCurrencyPresenter,

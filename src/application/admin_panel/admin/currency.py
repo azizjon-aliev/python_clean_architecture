@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from src.infrastructure.models import Currency
 
 

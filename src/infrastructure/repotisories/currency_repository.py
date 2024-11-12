@@ -1,9 +1,9 @@
 import os
 from typing import List
 
+import django
 from dotenv import load_dotenv
 
-import django
 from src.domain.entities.currency import Currency
 from src.domain.value_objects import CurrencyId
 from src.interactor.errors.error_classes import EntityDoesNotExist

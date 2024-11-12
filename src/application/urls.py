@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
+
 from src.application.views.account import RegisterAPIView
 from src.application.views.currency import CurrencyAPIView
 

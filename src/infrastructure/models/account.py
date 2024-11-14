@@ -3,10 +3,10 @@ from django.db import models
 
 from src.infrastructure.constaints import Role
 from src.infrastructure.managers import UserManager
-from src.infrastructure.models.base import Auditable, Timestampble
+from src.infrastructure.models.base import AuditableMixin, TimestampMixin
 
 
-class User(AbstractUser, Timestampble, Auditable):
+class User(AbstractUser, TimestampMixin, AuditableMixin):
     username = None
     first_name = None
     last_name = None

@@ -9,18 +9,18 @@ from src.domain.value_objects import UserId
 @dataclass
 class User:
     user_id: UserId
-    email: Optional[str]
+    email: str | None
     phone: str
     password: str
 
-    is_staff: Optional[bool]
-    is_active: Optional[bool]
-    is_superuser: Optional[bool]
-    date_joined: Optional[datetime]
-    otp: Optional[int]
-    is_verified: Optional[bool]
+    is_staff: bool | None
+    is_active: bool | None
+    is_superuser: bool | None
+    date_joined: datetime | None
+    otp: int | None
+    is_verified: bool | None
     role: str
-    company: Optional[str]
+    company: str | None
 
     created_by: Optional["User"]
     updated_by: Optional["User"]
